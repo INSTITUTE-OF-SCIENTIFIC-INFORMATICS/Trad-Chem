@@ -1,2 +1,2 @@
 # Chemicals-use-in-traditional-plants
-This project aims to discover a universal chemical dictionary including SMILES notation of traditional plants in traditional medicine.  
+The objective of this project is to create a comprehensive chemical dictionary that encompasses SMILES notation for plant species commonly employed in traditional medicinal practices.
