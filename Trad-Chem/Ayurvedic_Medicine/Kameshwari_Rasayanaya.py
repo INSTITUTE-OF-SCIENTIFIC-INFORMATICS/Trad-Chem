@@ -9,6 +9,7 @@ def write_medicinal_data_to_json(file_path):
             "product_name": "Kameshwari Rasayanaya",
             "benefits": ["Enhances vitality", "Boosts immunity"],
             "diseases": ["Weakness", "Fatigue"],
+            "S": [
             "ingredients": {
                 "Cannabis": {
             'cannabigerolic acid': r'CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\C)/CCC=C(C)C)O',
