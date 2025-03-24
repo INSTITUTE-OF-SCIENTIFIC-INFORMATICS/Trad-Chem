@@ -4,6 +4,6 @@ def get_ayurvedic_medicines():
     In practice, load or query the Ayurvedic medicine database.
     """
     return [
-        {"product_name": "Chyawanprash", "benefits": ["Immunity", "Rejuvenation"]},
-        {"product_name": "Triphala", "benefits": ["Digestive health", "Detoxification"]}
+        {"Kameshwari Rasayanaya": "Kameshwari Rasayanaya", "benefits": ["Enhances vitality", "Boosts immunity"]},
+        {}
     ]
