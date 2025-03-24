@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use TradChem, please cite it using the following metadata."
+title: "TradChem: A Comprehensive Chemical Database for Traditional Medicinal Systems"
+version: "0.1.0"
+authors:
+  - family-names: "Katukoliya Gamage"
+    given-names: "Anuththara Samadhi"
+date-released: "2025-03-24"

@@ -1,0 +1,44 @@
+[
+    {
+        "product_name": "Kameshwari Rasayanaya",
+        "benefits": ["Enhances vitality", "Boosts immunity"],
+        "diseases": ["Weakness", "Fatigue"],
+        "chemical_composition": {
+            "ingredients": {
+                "Cannabis": {
+                    "cannabigerolic acid": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)O",
+                    "cannabigerolic acid monomethylether": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)OC",
+                    "cannabigerol": "CCCCCC1=CC(=C(C(=C1)O)C/C=C(\\C)/CCC=C(C)C)O",
+                    "cannabigerol monomethylether": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)OC",
+                    "cannabigerovarinic acid": "CCCC1=CC(=C(C(=C1C(=O)O)O)CC=C(C)CCC=C(C)C)O",
+                    "cannabigerovarin": "CCCC1=CC(=C(C(=C1)O)C/C=C(\\C)/CCC=C(C)C)O"
+                },
+                "Bee Honey": {
+                    "Glucose": "C(C1C(C(C(C(O1)O)O)O)O)O",
+                    "Fructose": "C(C(C(C(C(=O)CO)O)O)O)O"
+                },
+                "Ghee": {
+                    "Butyric Acid": "CCCC(=O)O",
+                    "Palmitic Acid": "CCCCCCCCCCCCCCCC(=O)O"
+                }
+            }
+        }
+    },
+    {
+        "product_name": "New Product Name",
+        "benefits": ["Benefit 1", "Benefit 2"],
+        "diseases": ["Disease 1", "Disease 2"],
+        "chemical_composition": {
+            "ingredients": {
+                "Ingredient 1": {
+                    "compound_1": "SMILES_notation_1",
+                    "compound_2": "SMILES_notation_2"
+                },
+                "Ingredient 2": {
+                    "compound_1": "SMILES_notation_3",
+                    "compound_2": "SMILES_notation_4"
+                }
+            }
+        }
+    }
+]
