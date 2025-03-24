@@ -17,6 +17,6 @@ setup(
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Mozilla Public License Version 2.0",
     ],
 )
