@@ -15,14 +15,5 @@ eventually feed this structured data into an LLM for predictive analysis.
   - **medicine_systems/**: Modules for various traditional medicine systems (e.g., Ayurvedic, Traditional Chinese).
 - **tests/**: Unit tests for the project.
 
-## Installation
-
-Run the following command to install the package:
-
-```bash
-pip install .
-
-
-
 ![TC](https://github.com/user-attachments/assets/fb244336-1fc5-4e25-9170-7476aaeb70e9)
 
