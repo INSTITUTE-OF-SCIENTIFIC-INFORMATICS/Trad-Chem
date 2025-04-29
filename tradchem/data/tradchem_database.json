@@ -31,8 +31,8 @@
         "chemical_composition": {
             "ingredients": {
                 "Ingredient 1": {
-                    "compound_1": "SMILES_notation_1",
-                    "compound_2": "SMILES_notation_2"
+                    "Chebulic acid" : "C1C2C3C(C(C(O2)OC(=O)C4=CC(=C(C(=C4)O)O)O)OC(=O)C5=CC(=C(C6=C5C(C(C(=O)O3)CC(=O)O)C(C(=O)O6)O)O)O)OC(=O)C7=CC(=C(C(=C7C8=C(C(=C(C=C8C(=O)O1)O)O)O)O)O)O",
+                    "Gallic acid" : "OC(=O)C1=CC(O)=C(O)C(O)=C1"
                 },
                 "Ingredient 2": {
                     "compound_1": "SMILES_notation_3",
