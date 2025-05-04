@@ -1,43 +1,70 @@
 [
+    
     {
-        "product_name": "Kameshwari Rasayanaya",
-        "benefits": ["Enhances vitality", "Boosts immunity"],
-        "diseases": ["Weakness", "Fatigue"],
-        "chemical_composition": {
-            "ingredients": {
-                "Cannabis": {
-                    "cannabigerolic acid": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)O",
-                    "cannabigerolic acid monomethylether": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)OC",
-                    "cannabigerol": "CCCCCC1=CC(=C(C(=C1)O)C/C=C(\\C)/CCC=C(C)C)O",
-                    "cannabigerol monomethylether": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)OC",
-                    "cannabigerovarinic acid": "CCCC1=CC(=C(C(=C1C(=O)O)O)CC=C(C)CCC=C(C)C)O",
-                    "cannabigerovarin": "CCCC1=CC(=C(C(=C1)O)C/C=C(\\C)/CCC=C(C)C)O"
-                },
-                "Bee Honey": {
-                    "Glucose": "C(C1C(C(C(C(O1)O)O)O)O)O",
-                    "Fructose": "C(C(C(C(C(=O)CO)O)O)O)O"
-                },
-                "Ghee": {
-                    "Butyric Acid": "CCCC(=O)O",
-                    "Palmitic Acid": "CCCCCCCCCCCCCCCC(=O)O"
-                }
-            }
-        }
-    },
-    {
-        "product_name": "New Product Name",
-        "benefits": ["Benefit 1", "Benefit 2"],
+        "product_name": "Madan Bark– syzygium cumini ",
         "diseases": ["Disease 1", "Disease 2"],
-        "chemical_composition": {
+        "chemical_composition_of_bark": {
             "ingredients": {
-                "Ingredient 1": {
-                    "compound_1": "SMILES_notation_1",
-                    "compound_2": "SMILES_notation_2"
-                },
-                "Ingredient 2": {
-                    "compound_1": "SMILES_notation_3",
-                    "compound_2": "SMILES_notation_4"
+                "1.Betulinic Acid (BA)":{
+                    "smiles": "CC(=C)[C@@H]1CC[C@]2([C@H]1[C@H]3CC[C@@H]4[C@]5(CC[C@@H](C([C@@H]5CC[C@]4([C@@]3(CC2)C)C)(C)C)O)C)C(=O)O",
+                    "roles": "as anti-tumour, anti-viral, anti-inflammatory, and anti-diabetic effects ",
+                
+                "2.Friedelin":{
+                    "smiles":"C[C@H]1C(=O)CC[C@@H]2[C@@]1(CC[C@H]3[C@]2(CC[C@@]4([C@@]3(CC[C@@]5([C@H]4CC(CC5)(C)C)C)C)C)C)C",
+                    "roles":"inflammatory drug, non-narcotic, analgesic, antipyretic, plant metabolite, anti-insect action",
+
+                "3.Epi-friedelanol":{
+                    "smiles": "C[C@H]1[C@@H](CC[C@@H]2[C@@]1(CC[C@H]3[C@]2(CC[C@@]4([C@@]3(CC[C@@]5([C@H]4CC(CC5)(C)C)C)C)C)C)C)O ",
+                    "roles": "anti-cancer and anti-bacterial activities",
+
+                "4.Beta-sitosterol" :{
+                    "smiles": "CC[C@H](CC[C@@H](C)[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CC=C4[C@@]3(CC[C@@H](C4)O)C)C)C(C)C",
+                    "roles": "sterol methyltransferase inhibitor, anti-oxidant, plant metabolite, mouse metabolite, anti cholesteremic drug",
+                    
+                "5.Eugenin" :{
+                    "smiles": "CC1=CC(=O)C2=C(C=C(C=C2O1)OC)O ",
+                    "roles": "antioxidant, antiplatelet aggregation, immunosuppressive/immunomodulatory and anti-malarial activity",
+
+                "6.quercetin" :{
+                    "smiles": "C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O ",
+                    "roles": "antibacterial agent, plant metabolite, a phytoestrogen, a protein kinase inhibitor, a chelator, an antineoplastic agent.",
+
+                "7.kaempferol." :{
+                    "smiles": "C1=CC(=CC=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O",
+                    "roles": "antibacterial agent, a human urinary metabolite, a plant metabolite, human blood serum metabolite, and a geroprotector",
+
+                "8.Myricetin " :{
+                    "smiles": "C1=C(C=C(C(=C1O)O)O)C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O ",
+                    "roles": "strong anti-oxidant, anticancer, antidiabetic, anti-platelet aggregation and anti-inflammatory",
+
+                "9.Gallic Acid" :{
+                    "smiles": "C1=C(C=C(C(=C1O)O)O)C(=O)O",
+                    "roles": "anti-inflammatory, anti-cancer, antioxidant, anti-angiogenic",
+
+                "10.Bergenings" :{
+                    "smiles": "COC1=C(C=C2C(=C1O)[C@H]3[C@@H]([C@H]([C@@H]([C@H](O3)CO)O)O)OC2=O)O",
+                    "roles": "antiviral, antifungal, antitussive, ant plasmodial, anti-inflammatory, antihepatotoxic, antiarrhythmic, antitumor, antidiabetic and wound healing properties",
+
+                "11.Ellagic acid" :{
+                    "smiles": "C1=C2C3=C(C(=C1O)O)OC(=O)C4=CC(=C(C(=C43)OC2=O)O)O ",
+                    "roles": "antioxidant, a food additive, a plant metabolite. It is an investigational drug."
+
+                }    
                 }
+                    }
+                    }
+                    }
+                    }
+                }
+                }   
+                }
+                
+                    
+                  
+
+                }
+                }
+                
             }
         }
     }
