@@ -1,0 +1,26 @@
+{
+  "name": "tradchem-llm-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Trad-Chem LLM - Traditional Medicine AI Assistant",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Building frontend...' && mkdir -p dist && cp tradchem_llm/static/index.html dist/",
+    "dev": "echo 'Development server not needed for static files'",
+    "test": "echo 'No tests specified'",
+    "start": "echo 'Static files ready'"
+  },
+  "keywords": [
+    "traditional-medicine",
+    "ai",
+    "llm",
+    "chemistry",
+    "healthcare"
+  ],
+  "author": "Trad-Chem LLM Team",
+  "license": "MPL-2.0",
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 

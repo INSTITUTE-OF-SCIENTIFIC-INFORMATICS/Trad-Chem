@@ -1,0 +1,48 @@
+{
+  "medicines": [
+    {
+      "product_name": "Ashwagandha (Withania somnifera)",
+      "benefits": [
+        "Stress reduction",
+        "Energy boost",
+        "Immune enhancement",
+        "Adaptogenic effects"
+      ],
+      "diseases": [
+        "Stress",
+        "Anxiety",
+        "Fatigue",
+        "Weak immune system"
+      ],
+      "chemical_composition": {
+        "ingredients": {
+          "Ashwagandha": {
+            "primary_smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
+            "molecular_weight": 470.6,
+            "bioavailability": "Low"
+          },
+          "Withanolide": {
+            "primary_smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
+            "molecular_weight": 470.6,
+            "bioavailability": "Low"
+          }
+        }
+      },
+      "source": "Charaka Samhita, DOI: 10.1000/ashwagandha_study",
+      "traditional_system": "Ayurvedic Medicine",
+      "description": "Ashwagandha is an adaptogenic herb that helps the body adapt to stress.",
+      "dosage_info": "300-600mg daily, usually taken with milk",
+      "contraindications": "May affect thyroid function, use with caution during pregnancy",
+      "geographic_origin": "India",
+      "harvesting_season": "Winter (December-February)"
+    }
+  ],
+  "metadata": {
+    "contributor": "Demo Contributor",
+    "contribution_date": "2024-01-01",
+    "data_version": "1.0",
+    "quality_check": "Completed",
+    "sources_verified": true,
+    "smiles_validated": true
+  }
+}

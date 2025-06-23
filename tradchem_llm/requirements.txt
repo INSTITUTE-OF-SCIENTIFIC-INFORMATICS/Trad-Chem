@@ -1,0 +1,42 @@
+# Web Framework
+fastapi>=0.68.0,<1.0.0
+uvicorn[standard]>=0.15.0,<1.0.0
+
+# HTTP Client
+httpx>=0.24.0
+aiohttp>=3.8.0
+
+# Data Processing
+pydantic>=1.8.0,<2.0.0
+python-multipart>=0.0.5
+
+# LLM Integration
+openai>=0.27.0
+anthropic>=0.3.0
+
+# Database and Caching
+redis>=4.0.0
+sqlalchemy>=1.4.0,<2.0.0
+
+# Security
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.5
+
+# Monitoring and Logging
+structlog>=21.1.0
+prometheus-client>=0.12.0
+
+# Development
+pytest>=6.0.0,<8.0.0
+pytest-asyncio>=0.18.0
+black>=21.0.0
+flake8>=3.9.0
+mypy>=0.910
+
+# Documentation
+mkdocs>=1.2.0
+mkdocs-material>=8.0.0
+
+# Environment
+python-dotenv>=0.19.0 
