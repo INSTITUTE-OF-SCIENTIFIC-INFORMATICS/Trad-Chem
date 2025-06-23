@@ -2,11 +2,11 @@
   # Publish directory - where your static files are located
   publish = "tradchem_llm/static"
   
-  # Build command (if you need to build anything)
-  command = "echo 'No build step required for static files'"
+  # No build command needed for static files
+  command = ""
 
 [build.environment]
-  # Environment variables for the frontend
+  # Disable Python build process
   NODE_VERSION = "18"
   NPM_VERSION = "9"
 
