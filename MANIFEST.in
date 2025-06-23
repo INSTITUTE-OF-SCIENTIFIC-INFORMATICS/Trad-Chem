@@ -1,0 +1,32 @@
+# Include README and documentation
+include README.md
+include LICENSE
+include CITATION.cff
+include CONTRIBUTING.md
+include CONTRIBUTING_DATA.md
+
+# Include package data
+include tradchem/data/*.json
+include tradchem/medicine_systems/*.py
+
+# Include examples
+recursive-include examples *.py *.md *.json *.csv
+
+# Include contribution templates
+recursive-include contributions *.md *.json *.csv *.txt
+
+# Include tests
+recursive-include tradchem/tests *.py
+
+# Include setup files
+include setup.py
+include requirements.txt
+include pyproject.toml
+
+# Exclude unnecessary files
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude __pycache__
+global-exclude .git*
+global-exclude .DS_Store
+global-exclude *.log 

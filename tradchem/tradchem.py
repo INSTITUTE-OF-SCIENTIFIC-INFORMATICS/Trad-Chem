@@ -104,18 +104,22 @@ class TradChem:
         """Return a list of all medicine product names."""
         return [entry.get("product_name", "Unknown") for entry in self.data]
 
-    def search_medicines(self, query: str, search_type: str = "name") -> List[Dict[str, Any]]:
+    def search_medicines(self, query: str, search_type: str = "name", limit: int = 10) -> List[Dict[str, Any]]:
         """
         Search medicines by various criteria.
         
         Args:
             query: Search term
             search_type: Type of search ('name', 'benefit', 'disease', 'ingredient')
+            limit: Maximum number of results to return
         """
         query = query.lower()
         results = []
         
         for entry in self.data:
+            if len(results) >= limit:
+                break
+                
             if search_type == "name":
                 if query in entry.get("product_name", "").lower():
                     results.append(entry)
@@ -134,12 +138,27 @@ class TradChem:
         
         return results
 
-    def get_medicine_by_name(self, name: str) -> Optional[Dict[str, Any]]:
+    def get_medicine(self, name: str) -> Optional[Dict[str, Any]]:
         """Get a specific medicine by its exact name."""
         for entry in self.data:
             if entry.get("product_name", "").lower() == name.lower():
                 return entry
         return None
+
+    def get_medicine_by_name(self, name: str) -> Optional[Dict[str, Any]]:
+        """Alias for get_medicine for backward compatibility."""
+        return self.get_medicine(name)
+
+    def search_by_smiles(self, smiles: str) -> List[Dict[str, Any]]:
+        """Search medicines by SMILES notation."""
+        results = []
+        for entry in self.data:
+            ingredients = entry.get("chemical_composition", {}).get("ingredients", {})
+            for ingredient_name, ingredient_data in ingredients.items():
+                if isinstance(ingredient_data, dict) and ingredient_data.get("smiles") == smiles:
+                    results.append(entry)
+                    break
+        return results
 
     def get_statistics(self) -> Dict[str, Any]:
         """Get database statistics."""
@@ -153,16 +172,33 @@ class TradChem:
             ingredients = entry.get("chemical_composition", {}).get("ingredients", {})
             all_ingredients.update(ingredients.keys())
         
+        # Count traditional medicine systems
+        systems = {}
+        for entry in self.data:
+            system = entry.get("traditional_system", "Unknown")
+            systems[system] = systems.get(system, 0) + 1
+        
         return {
             "total_medicines": total_medicines,
             "total_benefits": total_benefits,
             "total_diseases": total_diseases,
             "total_ingredients": len(all_ingredients),
+            "total_systems": len(systems),
+            "systems": systems,
             "last_updated": datetime.now().isoformat()
         }
 
-    def export_to_csv(self, output_path: str) -> bool:
-        """Export database to CSV format for analysis."""
+    def export_data(self, format: str = "json") -> Any:
+        """Export database in specified format."""
+        if format == "json":
+            return self.data
+        elif format == "csv":
+            return self._export_to_csv_string()
+        else:
+            raise ValueError(f"Unsupported format: {format}")
+
+    def _export_to_csv_string(self) -> str:
+        """Export database to CSV string."""
         try:
             import pandas as pd
             
@@ -171,6 +207,10 @@ class TradChem:
             for entry in self.data:
                 flat_entry = {
                     "product_name": entry.get("product_name", ""),
+                    "scientific_name": entry.get("scientific_name", ""),
+                    "description": entry.get("description", ""),
+                    "traditional_system": entry.get("traditional_system", ""),
+                    "geographic_origin": entry.get("geographic_origin", ""),
                     "benefits": "; ".join(entry.get("benefits", [])),
                     "diseases": "; ".join(entry.get("diseases", [])),
                     "ingredients": "; ".join(entry.get("chemical_composition", {}).get("ingredients", {}).keys()),
@@ -180,12 +220,22 @@ class TradChem:
                 flattened_data.append(flat_entry)
             
             df = pd.DataFrame(flattened_data)
-            df.to_csv(output_path, index=False, encoding='utf-8')
-            logger.info(f"Database exported to {output_path}")
-            return True
+            return df.to_csv(index=False, encoding='utf-8')
         except ImportError:
             logger.error("pandas is required for CSV export")
-            return False
+            return "pandas not available for CSV export"
+
+    def export_to_csv(self, output_path: str) -> bool:
+        """Export database to CSV format for analysis."""
+        try:
+            csv_data = self._export_to_csv_string()
+            if csv_data.startswith("pandas not available"):
+                return False
+                
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(csv_data)
+            logger.info(f"Database exported to {output_path}")
+            return True
         except Exception as e:
             logger.error(f"Error exporting to CSV: {e}")
             return False
@@ -197,6 +247,28 @@ class TradChem:
         """
         # Here you would integrate your LLM model prediction logic.
         return "Predicted outcome based on input data."
+
+    def validate_database(self) -> Dict[str, Any]:
+        """Validate database integrity and return validation results."""
+        validation_results = {
+            "total_entries": len(self.data),
+            "valid_entries": 0,
+            "invalid_entries": 0,
+            "errors": []
+        }
+        
+        for i, entry in enumerate(self.data):
+            try:
+                if self._validate_medicine_entry(entry):
+                    validation_results["valid_entries"] += 1
+                else:
+                    validation_results["invalid_entries"] += 1
+                    validation_results["errors"].append(f"Entry {i}: Invalid structure")
+            except Exception as e:
+                validation_results["invalid_entries"] += 1
+                validation_results["errors"].append(f"Entry {i}: {str(e)}")
+        
+        return validation_results
 
     def backup_database(self, backup_path: str = None) -> bool:
         """Create a backup of the current database."""
