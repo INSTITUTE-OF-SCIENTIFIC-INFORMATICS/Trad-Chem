@@ -217,4 +217,7 @@ Thanks to all researchers, practitioners, and enthusiasts who contribute to the 
 
 *Author: SaltyHeart*
 
+# Go to supabase.com and create a new project
+# Get your project URL and anon key
+
 
