@@ -1,87 +1,78 @@
-# 🌿 TradChem Google Colab Installation Guide
+#!/usr/bin/env python3
+"""
+TradChem Clean Colab Installation
 
-This guide provides comprehensive instructions for installing and using TradChem in Google Colab. Since TradChem is not yet published on PyPI, we provide several installation methods to ensure compatibility.
-
-## 🚨 **Important Note**
-
-TradChem is currently in development and not available on PyPI. Use the installation methods below to get started in Google Colab.
-
-## 🚀 **Method 1: Clean Installation (Recommended)**
-
-This method creates a clean installation without any file corruption issues:
-
-### **Step 1: Copy and Paste Installation Script**
-
-Copy the entire code block below into a Colab cell and run it:
-
-```python
-# TradChem Clean Installation for Colab
-# This creates clean files without null bytes
+This script creates a clean installation of TradChem in Google Colab
+by downloading fresh copies of the source files.
+"""
 
 import subprocess
 import sys
 import os
+import urllib.request
 from pathlib import Path
 
-print("🧹 Clean TradChem Installation for Colab")
-print("=" * 50)
-
-# Step 1: Remove existing installation
-print("🗑️  Cleaning existing installation...")
-try:
-    subprocess.check_call([sys.executable, "-m", "pip", "uninstall", "tradchem", "-y"])
-    print("✅ Removed existing tradchem package")
-except:
-    print("⚠️  No existing package to remove")
-
-# Remove existing directory
-import shutil
-if os.path.exists("/content/Trad-Chem"):
-    shutil.rmtree("/content/Trad-Chem")
-    print("✅ Removed existing directory")
-
-# Step 2: Install dependencies
-print("\n📦 Installing dependencies...")
-dependencies = [
-    "numpy>=1.21.0",
-    "pandas>=1.3.0", 
-    "scipy>=1.7.0",
-    "matplotlib>=3.4.0",
-    "seaborn>=0.11.0",
-    "scikit-learn>=0.24.0",
-    "jsonschema>=3.2.0",
-    "pydantic>=1.8.0"
-]
-
-for dep in dependencies:
+def clean_install():
+    """Clean installation of TradChem."""
+    print("🧹 Clean TradChem Installation for Colab")
+    print("=" * 50)
+    
+    # Step 1: Remove existing installation
+    print("🗑️  Cleaning existing installation...")
     try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", dep])
-        print(f"✅ {dep}")
+        subprocess.check_call([sys.executable, "-m", "pip", "uninstall", "tradchem", "-y"])
+        print("✅ Removed existing tradchem package")
     except:
-        print(f"⚠️  {dep} (already installed)")
-
-# Try to install RDKit
-try:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "rdkit-pypi"])
-    print("✅ rdkit-pypi")
-except:
-    print("⚠️  rdkit-pypi (optional)")
-
-# Step 3: Create clean directory structure
-print("\n📁 Creating clean directory structure...")
-base_dir = Path("/content/Trad-Chem")
-tradchem_dir = base_dir / "tradchem"
-utils_dir = tradchem_dir / "utils"
-medicine_dir = tradchem_dir / "medicine_systems"
-
-for dir_path in [base_dir, tradchem_dir, utils_dir, medicine_dir]:
-    dir_path.mkdir(parents=True, exist_ok=True)
-
-# Step 4: Create clean source files
-print("📝 Creating clean source files...")
-
-# __init__.py
-init_content = '''"""
+        print("⚠️  No existing package to remove")
+    
+    # Remove existing directory
+    import shutil
+    if os.path.exists("/content/Trad-Chem"):
+        shutil.rmtree("/content/Trad-Chem")
+        print("✅ Removed existing directory")
+    
+    # Step 2: Install dependencies
+    print("\n📦 Installing dependencies...")
+    dependencies = [
+        "numpy>=1.21.0",
+        "pandas>=1.3.0", 
+        "scipy>=1.7.0",
+        "matplotlib>=3.4.0",
+        "seaborn>=0.11.0",
+        "scikit-learn>=0.24.0",
+        "jsonschema>=3.2.0",
+        "pydantic>=1.8.0"
+    ]
+    
+    for dep in dependencies:
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", dep])
+            print(f"✅ {dep}")
+        except:
+            print(f"⚠️  {dep} (already installed)")
+    
+    # Try to install RDKit
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "rdkit-pypi"])
+        print("✅ rdkit-pypi")
+    except:
+        print("⚠️  rdkit-pypi (optional)")
+    
+    # Step 3: Create clean directory structure
+    print("\n📁 Creating clean directory structure...")
+    base_dir = Path("/content/Trad-Chem")
+    tradchem_dir = base_dir / "tradchem"
+    utils_dir = tradchem_dir / "utils"
+    medicine_dir = tradchem_dir / "medicine_systems"
+    
+    for dir_path in [base_dir, tradchem_dir, utils_dir, medicine_dir]:
+        dir_path.mkdir(parents=True, exist_ok=True)
+    
+    # Step 4: Create clean source files
+    print("📝 Creating clean source files...")
+    
+    # __init__.py
+    init_content = '''"""
 TradChem - Traditional Medicine Chemical Analysis
 
 A comprehensive Python package for analyzing traditional medicine data, 
@@ -97,20 +88,20 @@ __author__ = "SaltyHeart"
 __version__ = "0.2.0"
 __description__ = "Traditional medicine chemical analysis package"
 '''
-
-with open(tradchem_dir / "__init__.py", "w", encoding="utf-8") as f:
-    f.write(init_content)
-
-# version.py
-version_content = '''"""Version information."""
+    
+    with open(tradchem_dir / "__init__.py", "w", encoding="utf-8") as f:
+        f.write(init_content)
+    
+    # version.py
+    version_content = '''"""Version information."""
 __version__ = "0.2.0"
 '''
-
-with open(tradchem_dir / "version.py", "w", encoding="utf-8") as f:
-    f.write(version_content)
-
-# Create minimal TradChem class
-tradchem_content = '''"""
+    
+    with open(tradchem_dir / "version.py", "w", encoding="utf-8") as f:
+        f.write(version_content)
+    
+    # Create minimal TradChem class
+    tradchem_content = '''"""
 TradChem - Traditional Medicine Chemical Analysis
 """
 
@@ -392,22 +383,22 @@ class TradChem:
             logger.error(f"Failed to add medicine: {e}")
             return False
 '''
-
-with open(tradchem_dir / "tradchem.py", "w", encoding="utf-8") as f:
-    f.write(tradchem_content)
-
-# Create utils/__init__.py
-utils_init = '''"""Utility modules for TradChem."""
+    
+    with open(tradchem_dir / "tradchem.py", "w", encoding="utf-8") as f:
+        f.write(tradchem_content)
+    
+    # Create utils/__init__.py
+    utils_init = '''"""Utility modules for TradChem."""
 from . import smiles_utils, data_utils
 
 __all__ = ['smiles_utils', 'data_utils']
 '''
-
-with open(utils_dir / "__init__.py", "w", encoding="utf-8") as f:
-    f.write(utils_init)
-
-# Create minimal smiles_utils.py
-smiles_utils_content = '''"""SMILES utilities for chemical structure validation."""
+    
+    with open(utils_dir / "__init__.py", "w", encoding="utf-8") as f:
+        f.write(utils_init)
+    
+    # Create minimal smiles_utils.py
+    smiles_utils_content = '''"""SMILES utilities for chemical structure validation."""
 import re
 
 def validate_smiles(smiles: str) -> bool:
@@ -431,12 +422,12 @@ def convert_smiles_format(smiles: str, target_format: str) -> str:
         return canonicalize_smiles(smiles)
     return smiles
 '''
-
-with open(utils_dir / "smiles_utils.py", "w", encoding="utf-8") as f:
-    f.write(smiles_utils_content)
-
-# Create minimal data_utils.py
-data_utils_content = '''"""Data utilities for TradChem."""
+    
+    with open(utils_dir / "smiles_utils.py", "w", encoding="utf-8") as f:
+        f.write(smiles_utils_content)
+    
+    # Create minimal data_utils.py
+    data_utils_content = '''"""Data utilities for TradChem."""
 import pandas as pd
 from typing import List, Dict, Any
 
@@ -474,22 +465,22 @@ def validate_data_structure(data: List[Dict[str, Any]]) -> bool:
     
     return True
 '''
-
-with open(utils_dir / "data_utils.py", "w", encoding="utf-8") as f:
-    f.write(data_utils_content)
-
-# Create medicine_systems/__init__.py
-medicine_init = '''"""Traditional medicine systems modules."""
+    
+    with open(utils_dir / "data_utils.py", "w", encoding="utf-8") as f:
+        f.write(data_utils_content)
+    
+    # Create medicine_systems/__init__.py
+    medicine_init = '''"""Traditional medicine systems modules."""
 from . import ayurvedic
 
 __all__ = ['ayurvedic']
 '''
-
-with open(medicine_dir / "__init__.py", "w", encoding="utf-8") as f:
-    f.write(medicine_init)
-
-# Create minimal ayurvedic.py
-ayurvedic_content = '''"""Ayurvedic medicine system analysis."""
+    
+    with open(medicine_dir / "__init__.py", "w", encoding="utf-8") as f:
+        f.write(medicine_init)
+    
+    # Create minimal ayurvedic.py
+    ayurvedic_content = '''"""Ayurvedic medicine system analysis."""
 from typing import Dict, List, Any
 
 class AyurvedicAnalyzer:
@@ -526,12 +517,12 @@ class AyurvedicAnalyzer:
 # Create instance for easy access
 ayurvedic = AyurvedicAnalyzer()
 '''
-
-with open(medicine_dir / "ayurvedic.py", "w", encoding="utf-8") as f:
-    f.write(ayurvedic_content)
-
-# Create setup.py
-setup_content = '''from setuptools import setup, find_packages
+    
+    with open(medicine_dir / "ayurvedic.py", "w", encoding="utf-8") as f:
+        f.write(ayurvedic_content)
+    
+    # Create setup.py
+    setup_content = '''from setuptools import setup, find_packages
 
 setup(
     name="tradchem",
@@ -552,222 +543,55 @@ setup(
     python_requires=">=3.7",
 )
 '''
-
-with open(base_dir / "setup.py", "w", encoding="utf-8") as f:
-    f.write(setup_content)
-
-# Step 5: Install the package
-print("🔧 Installing clean TradChem package...")
-try:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", str(base_dir)])
-    print("✅ TradChem installed successfully!")
-except Exception as e:
-    print(f"❌ Installation failed: {e}")
-    print("Adding to Python path instead...")
-    sys.path.append(str(base_dir))
-
-# Step 6: Test installation
-print("\n🧪 Testing TradChem installation...")
-try:
-    from tradchem import TradChem
-    print("✅ TradChem imported successfully")
     
-    tc = TradChem()
-    print("✅ TradChem initialized successfully")
+    with open(base_dir / "setup.py", "w", encoding="utf-8") as f:
+        f.write(setup_content)
     
-    # Test basic functionality
-    stats = tc.get_statistics()
-    print(f"✅ Database statistics: {stats['total_medicines']} medicines")
+    # Step 5: Install the package
+    print("🔧 Installing clean TradChem package...")
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", str(base_dir)])
+        print("✅ TradChem installed successfully!")
+        return True
+    except Exception as e:
+        print(f"❌ Installation failed: {e}")
+        print("Adding to Python path instead...")
+        sys.path.append(str(base_dir))
+        return False
+
+def test_installation():
+    """Test if TradChem works correctly."""
+    print("\n🧪 Testing TradChem installation...")
     
-    # Test search
-    results = tc.search_medicines("test", limit=1)
-    print(f"✅ Search functionality: {len(results)} results")
-    
-    print("🎉 TradChem is working correctly!")
-    
-except Exception as e:
-    print(f"❌ Test failed: {e}")
+    try:
+        from tradchem import TradChem
+        print("✅ TradChem imported successfully")
+        
+        tc = TradChem()
+        print("✅ TradChem initialized successfully")
+        
+        # Test basic functionality
+        stats = tc.get_statistics()
+        print(f"✅ Database statistics: {stats['total_medicines']} medicines")
+        
+        # Test search
+        results = tc.search_medicines("test", limit=1)
+        print(f"✅ Search functionality: {len(results)} results")
+        
+        print("🎉 TradChem is working correctly!")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Test failed: {e}")
+        return False
 
-print("\n🎉 Clean installation complete!")
-print("\nExample usage:")
-print("from tradchem import TradChem")
-print("tc = TradChem()")
-print("tc.search_medicines('turmeric')")
-```
-
-### **Step 2: Test Your Installation**
-
-After running the installation script, test it with:
-
-```python
-# Test your installation
-from tradchem import TradChem
-
-# Initialize
-tc = TradChem()
-print("✅ TradChem initialized")
-
-# Test basic functionality
-stats = tc.get_statistics()
-print(f"✅ Database statistics: {stats['total_medicines']} medicines")
-
-# Test search
-results = tc.search_medicines("turmeric", limit=5)
-print(f"✅ Search functionality: {len(results)} results")
-
-print("🎉 TradChem is working correctly!")
-```
-
-## 🔧 **Method 2: Git Clone Installation**
-
-If Method 1 doesn't work, try this simpler approach:
-
-```python
-# Install dependencies
-!pip install numpy pandas scipy matplotlib seaborn scikit-learn jsonschema pydantic rdkit-pypi
-
-# Clone repository
-!git clone https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem.git
-!pip install -e Trad-Chem/
-
-# Test installation
-from tradchem import TradChem
-tc = TradChem()
-print("✅ TradChem is ready!")
-```
-
-## 🔧 **Method 3: Manual File Download**
-
-If both methods above fail, use this manual approach:
-
-```python
-import urllib.request
-import os
-import sys
-
-# Create directory
-os.makedirs("/content/tradchem", exist_ok=True)
-
-# Download core files
-files = {
-    "/content/tradchem/__init__.py": "https://raw.githubusercontent.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/main/tradchem/__init__.py",
-    "/content/tradchem/tradchem.py": "https://raw.githubusercontent.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/main/tradchem/tradchem.py",
-    "/content/tradchem/version.py": "https://raw.githubusercontent.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/main/tradchem/version.py"
-}
-
-for file_path, url in files.items():
-    urllib.request.urlretrieve(url, file_path)
-    print(f"Downloaded: {file_path}")
-
-# Add to Python path
-sys.path.append("/content")
-
-# Test import
-from tradchem import TradChem
-tc = TradChem()
-print("✅ TradChem is ready!")
-```
-
-## 🧪 **Testing Your Installation**
-
-After any installation method, test it with:
-
-```python
-# Test basic functionality
-from tradchem import TradChem
-
-# Initialize
-tc = TradChem()
-print("✅ TradChem initialized")
-
-# Test search
-results = tc.search_medicines("turmeric", limit=5)
-print(f"✅ Search functionality: {len(results)} results")
-
-# Test statistics
-stats = tc.get_statistics()
-print(f"✅ Statistics: {stats['total_medicines']} medicines in database")
-
-print("🎉 TradChem is working correctly!")
-```
-
-## 🔍 **Troubleshooting**
-
-### **Common Issues and Solutions**
-
-#### **1. Null Bytes Error**
-**Error**: `SyntaxError: source code string cannot contain null bytes`
-
-**Solution**: Use Method 1 (Clean Installation) which creates fresh files without null bytes.
-
-#### **2. Import Error**
-**Error**: `ModuleNotFoundError: No module named 'tradchem'`
-
-**Solution**: 
-- Make sure the installation completed successfully
-- Check that the package is in your Python path
-- Try restarting the Colab runtime
-
-#### **3. Git Clone Failed**
-**Error**: `fatal: destination path 'Trad-Chem' already exists`
-
-**Solution**: 
-- Remove the existing directory first
-- Use Method 1 which handles this automatically
-
-#### **4. Dependency Installation Failed**
-**Error**: Package installation errors
-
-**Solution**:
-- Try installing dependencies one by one
-- Check your internet connection
-- Restart the Colab runtime
-
-### **If Nothing Works**
-
-If all methods fail, create a minimal working version:
-
-```python
-# Minimal working TradChem
-class TradChem:
-    def __init__(self):
-        self.data = []
-        print("TradChem initialized (minimal version)")
-    
-    def search_medicines(self, query, limit=10):
-        return []
-    
-    def get_statistics(self):
-        return {"total_medicines": 0}
-
-print("✅ Minimal TradChem available")
-```
-
-## 📚 **Next Steps**
-
-After successful installation:
-
-1. **Read the [Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md)** - Understand all components
-2. **Try the [Basic Tutorial](colab_examples/tradchem_basic_usage.ipynb)** - Learn basic usage
-3. **Explore [Chemical Analysis](colab_examples/tradchem_chemical_analysis.ipynb)** - Advanced features
-4. **Check [Examples](examples/)** - More usage examples
-
-## 🆘 **Need Help?**
-
-If you're still having issues:
-
-1. **Check the error messages** carefully
-2. **Try different installation methods**
-3. **Restart the Colab runtime** if needed
-4. **Check your internet connection**
-5. **Report issues** on GitHub
-
-## 📞 **Support**
-
-- **Documentation**: [TradChem Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md)
-- **Issues**: [GitHub Issues](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/discussions)
-
----
-
-**🌿 TradChem** - Making traditional medicine analysis accessible in Google Colab! 
+if __name__ == "__main__":
+    if clean_install():
+        test_installation()
+        print("\n🎉 Clean installation complete!")
+        print("\nExample usage:")
+        print("from tradchem import TradChem")
+        print("tc = TradChem()")
+        print("tc.search_medicines('turmeric')")
+    else:
+        print("\n❌ Installation failed. Please check the error messages above.") 

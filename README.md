@@ -34,19 +34,24 @@ A comprehensive Python package for analyzing traditional medicine data, chemical
 
 ## 🚀 **Installation**
 
-### **Basic Installation**
+### **Local Installation**
 ```bash
-pip install tradchem
+# Clone the repository
+git clone https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem.git
+cd Trad-Chem
+
+# Install in development mode
+pip install -e .
 ```
 
 ### **Installation with Analysis Dependencies**
 ```bash
-pip install tradchem[analysis]
+pip install -e ".[analysis]"
 ```
 
 ### **Development Installation**
 ```bash
-git clone https://github.com/SaltyHeart/Trad-Chem.git
+git clone https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem.git
 cd Trad-Chem
 pip install -e ".[dev]"
 ```
@@ -90,7 +95,46 @@ python -m tradchem.cli report --file medicines.csv --output report.html
 
 ## 📚 **Google Colab Integration**
 
-TradChem is fully compatible with Google Colab! Check out our comprehensive tutorials:
+TradChem is fully compatible with Google Colab! Since the package is not yet published on PyPI, use our special installation method:
+
+### **🚀 Quick Colab Setup**
+```python
+# Copy and paste this entire code block into a Colab cell
+import subprocess
+import sys
+import os
+from pathlib import Path
+
+print("🧹 Clean TradChem Installation for Colab")
+print("=" * 50)
+
+# Remove existing installation
+try:
+    subprocess.check_call([sys.executable, "-m", "pip", "uninstall", "tradchem", "-y"])
+except:
+    pass
+
+import shutil
+if os.path.exists("/content/Trad-Chem"):
+    shutil.rmtree("/content/Trad-Chem")
+
+# Install dependencies
+dependencies = ["numpy", "pandas", "scipy", "matplotlib", "seaborn", "scikit-learn", "jsonschema", "pydantic"]
+for dep in dependencies:
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", dep])
+    except:
+        pass
+
+# Clone and install
+subprocess.check_call(["git", "clone", "https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem.git", "/content/Trad-Chem"])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", "/content/Trad-Chem"])
+
+# Test installation
+from tradchem import TradChem
+tc = TradChem()
+print("✅ TradChem is ready!")
+```
 
 ### **🎓 Learning Paths**
 1. **[Basic Usage Tutorial](colab_examples/tradchem_basic_usage.ipynb)** - Start here for beginners
@@ -100,15 +144,9 @@ TradChem is fully compatible with Google Colab! Check out our comprehensive tuto
 ### **🧠 Knowledge Graph Navigation**
 - **[TradChem Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md)** - Complete component overview and navigation guide
 
-### **🚀 Quick Colab Setup**
-```python
-# Install TradChem in Colab
-!pip install tradchem
-
-# Import and start analyzing
-from tradchem import TradChem
-tc = TradChem()
-```
+### **📖 Installation Guide**
+- **[Colab Installation Guide](COLAB_INSTALLATION_GUIDE.md)** - Detailed Colab setup instructions
+- **[Colab Integration Guide](COLAB_INTEGRATION.md)** - Google Colab setup and usage
 
 ## 📖 **Documentation**
 
@@ -116,6 +154,7 @@ tc = TradChem()
 - **[TradChem Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md)** - Interactive component navigation
 - **[Colab Integration Guide](COLAB_INTEGRATION.md)** - Google Colab setup and usage
 - **[Contribution Guide](CONTRIBUTING_PYTHON_PACKAGE.md)** - How to contribute to TradChem
+- **[Colab Installation Guide](COLAB_INSTALLATION_GUIDE.md)** - Detailed Colab setup
 
 ### **🎯 Component Documentation**
 - **🔍 Data Loading & Validation**: Load and validate traditional medicine data
@@ -142,8 +181,8 @@ We welcome contributions from the community! TradChem is built for researchers, 
 ### **📋 Getting Started**
 1. **Read the [Contribution Guide](CONTRIBUTING_PYTHON_PACKAGE.md)** - Comprehensive guide for contributors
 2. **Explore the [Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md)** - Understand TradChem components
-3. **Check [Issues](https://github.com/SaltyHeart/Trad-Chem/issues)** - Find areas to contribute
-4. **Join [Discussions](https://github.com/SaltyHeart/Trad-Chem/discussions)** - Connect with the community
+3. **Check [Issues](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/issues)** - Find areas to contribute
+4. **Join [Discussions](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/discussions)** - Connect with the community
 
 ### **🛠️ Development Setup**
 ```bash
@@ -198,73 +237,69 @@ For detailed contribution guidelines, see [CONTRIBUTING_PYTHON_PACKAGE.md](CONTR
 
 ## 📊 **Data Format**
 
-### **Supported Input Formats**
-- **CSV**: Comma-separated values with traditional medicine data
-- **JSON**: Structured data with chemical information
-- **Excel**: Spreadsheet data with multiple sheets
+TradChem supports multiple data formats:
 
-### **Chemical Data Requirements**
-- **SMILES Notation**: Canonical SMILES format for chemical structures
-- **Molecular Properties**: Weight, formula, CAS numbers, PubChem IDs
-- **Validation**: Automatic SMILES validation and canonicalization
-
-### **Sample Data Structure**
+### **JSON Format**
 ```json
 {
-  "product_name": "Traditional Medicine",
-  "scientific_name": "Scientific Name",
-  "traditional_system": "Ayurvedic Medicine",
+  "product_name": "Turmeric Extract",
+  "scientific_name": "Curcuma longa",
+  "traditional_system": "Ayurveda",
   "geographic_origin": "India",
-  "benefits": ["Benefit 1", "Benefit 2"],
+  "benefits": ["Anti-inflammatory", "Antioxidant", "Digestive aid"],
+  "diseases": ["Arthritis", "Digestive disorders"],
   "chemical_composition": {
     "ingredients": {
-      "Active Compound": {
+      "Curcumin": {
         "smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
         "molecular_weight": 368.38,
-        "cas_number": "458-37-7",
-        "pubchem_id": "969516"
+        "formula": "C21H20O6"
       }
     }
   }
 }
 ```
 
-## 🔧 **Dependencies**
+### **CSV Format**
+```csv
+product_name,scientific_name,traditional_system,geographic_origin,benefits,diseases
+Turmeric Extract,Curcuma longa,Ayurveda,India,"Anti-inflammatory,Antioxidant","Arthritis,Digestive disorders"
+```
 
-### **Core Dependencies**
-- **Python**: 3.8 or higher
-- **Pandas**: Data manipulation and analysis
-- **NumPy**: Numerical computing
-- **Matplotlib**: Basic plotting and visualization
+## 🧪 **Testing**
 
-### **Analysis Dependencies**
-- **RDKit**: Chemical structure analysis and molecular properties
-- **Seaborn**: Advanced statistical visualizations
-- **SciPy**: Scientific computing and statistics
+```bash
+# Run all tests
+pytest
 
-### **Development Dependencies**
-- **Pytest**: Testing framework
-- **Black**: Code formatting
-- **Flake8**: Code linting
-- **MyPy**: Type checking
+# Run specific test categories
+pytest tests/test_tradchem.py
+pytest tests/test_chemical_analysis.py
+pytest tests/test_statistical_analysis.py
+```
 
 ## 📈 **Performance**
 
-- **Data Loading**: Optimized for large traditional medicine datasets
-- **Chemical Analysis**: Efficient SMILES processing and molecular calculations
-- **Statistical Analysis**: Fast statistical computations and correlations
-- **Visualization**: Responsive plotting for interactive analysis
+TradChem is optimized for:
+- **Large datasets**: Efficient processing of thousands of medicines
+- **Chemical analysis**: Fast SMILES validation and property calculation
+- **Statistical analysis**: Optimized algorithms for data analysis
+- **Visualization**: High-quality plots and charts
 
-## 🌟 **Highlights**
+## 🔧 **Configuration**
 
-- **🌿 Traditional Medicine Focus**: Specialized for traditional medicine analysis
-- **🧪 Chemical Intelligence**: Advanced molecular property calculations
-- **📊 Statistical Power**: Comprehensive statistical analysis capabilities
-- **🎨 Beautiful Visualizations**: Apple Design-inspired UI and plots
-- **🚀 Google Colab Ready**: Seamless integration with Google Colab
-- **🤝 Community Driven**: Open source with active community support
-- **📚 Comprehensive Documentation**: Extensive guides and tutorials
-- **🛠️ Extensible Architecture**: Easy to extend and customize
+TradChem can be configured through environment variables:
+
+```bash
+# Set database path
+export TRADCHEM_DB_PATH=/path/to/database.json
+
+# Set logging level
+export TRADCHEM_LOG_LEVEL=INFO
+
+# Enable debug mode
+export TRADCHEM_DEBUG=true
+```
 
 ## 📄 **License**
 
@@ -272,24 +307,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 **Acknowledgments**
 
-- **Traditional Medicine Communities**: For preserving and sharing traditional knowledge
-- **Scientific Community**: For developing the tools and methods that make this possible
-- **Open Source Contributors**: For building the foundation libraries and tools
-- **Research Institutions**: For advancing our understanding of traditional medicines
+- **Traditional Medicine Researchers**: For sharing knowledge and data
+- **Chemical Analysis Community**: For tools and methodologies
+- **Open Source Contributors**: For building amazing tools
+- **Scientific Community**: For advancing traditional medicine research
 
 ## 📞 **Support**
 
-- **📖 Documentation**: [Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md) and [Contribution Guide](CONTRIBUTING_PYTHON_PACKAGE.md)
-- **🐛 Issues**: [GitHub Issues](https://github.com/SaltyHeart/Trad-Chem/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/SaltyHeart/Trad-Chem/discussions)
-- **📧 Email**: For sensitive or private matters
-
-## 🌟 **Star History**
-
-[![Star History Chart](https://api.star-history.com/svg?repos=SaltyHeart/Trad-Chem&type=Date)](https://star-history.com/#SaltyHeart/Trad-Chem&Date)
+- **Documentation**: [TradChem Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md)
+- **Issues**: [GitHub Issues](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/discussions)
+- **Email**: contributors@tradchem.org
 
 ---
 
-**Built with ❤️ by the TradChem Community**
+**🌿 TradChem** - Bridging traditional wisdom with modern analysis
 
-*Empowering traditional medicine research through modern chemical analysis* 🌿🧪📊 
+*Built with ❤️ for the traditional medicine research community* 

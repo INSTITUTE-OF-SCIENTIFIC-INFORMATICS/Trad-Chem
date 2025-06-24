@@ -1,389 +1,341 @@
 # 🤝 Contributing to TradChem Python Package
 
-Thank you for your interest in contributing to TradChem! This guide will help you understand how to contribute to the Python package, whether you're adding code, data, documentation, or helping with testing.
+Thank you for your interest in contributing to TradChem! This guide provides comprehensive information for contributors who want to help improve the traditional medicine chemical analysis package.
 
 ## 📋 **Table of Contents**
 
 - [Types of Contributions](#types-of-contributions)
+- [Getting Started](#getting-started)
 - [Development Setup](#development-setup)
-- [Code Contributions](#code-contributions)
-- [Data Contributions](#data-contributions)
-- [Documentation Contributions](#documentation-contributions)
-- [Testing Contributions](#testing-contributions)
+- [Code Contribution Guidelines](#code-contribution-guidelines)
+- [Data Contribution Guidelines](#data-contribution-guidelines)
+- [Testing Guidelines](#testing-guidelines)
+- [Documentation Guidelines](#documentation-guidelines)
 - [Pull Request Process](#pull-request-process)
-- [Code of Conduct](#code-of-conduct)
+- [Community Guidelines](#community-guidelines)
+- [Recognition](#recognition)
 
 ## 🎯 **Types of Contributions**
 
-### **Code Contributions**
-- 🐛 **Bug fixes** - Fix issues and improve reliability
-- ✨ **New features** - Add new functionality to the package
-- 🔧 **Improvements** - Enhance existing features
-- 🧪 **Testing** - Add or improve test coverage
-- 📊 **Analysis tools** - Add new analysis methods
+### **💻 Code Contributions**
+- **Bug Fixes**: Fix issues and improve stability
+- **New Features**: Add new analysis capabilities
+- **Performance Improvements**: Optimize existing code
+- **Code Refactoring**: Improve code structure and readability
+- **Testing**: Add tests and improve test coverage
 
-### **Data Contributions**
-- 🌿 **Traditional medicine data** - Add new medicines and compounds
-- 🧪 **Chemical structures** - Add SMILES notations and molecular data
-- 📚 **Research data** - Add scientific references and studies
-- 🌍 **Cultural data** - Add traditional medicine system information
+### **📊 Data Contributions**
+- **Traditional Medicine Data**: Add new medicines and compounds
+- **Chemical Structures**: Add SMILES notations and molecular data
+- **Research Data**: Add scientific references and studies
+- **Cultural Data**: Add traditional medicine system information
 
-### **Documentation Contributions**
-- 📖 **API documentation** - Improve code documentation
-- 🎓 **Tutorials** - Create learning materials
-- 📚 **Examples** - Add usage examples and notebooks
-- 🌐 **Website content** - Improve project documentation
+### **📚 Documentation Contributions**
+- **Tutorials**: Create learning materials and examples
+- **API Documentation**: Improve function and class documentation
+- **User Guides**: Create comprehensive usage guides
+- **Knowledge Graph**: Expand the component navigation system
 
-### **Community Contributions**
-- 💬 **Discussions** - Participate in GitHub discussions
-- 🐛 **Issue reporting** - Report bugs and suggest features
-- 🔍 **Code review** - Review pull requests
-- 📢 **Outreach** - Help spread the word about TradChem
+### **🌍 Community Contributions**
+- **Issue Reporting**: Report bugs and suggest improvements
+- **Code Review**: Review pull requests and provide feedback
+- **Discussions**: Participate in community discussions
+- **Outreach**: Help spread awareness about TradChem
+
+## 🚀 **Getting Started**
+
+### **1. Understand the Project**
+
+Before contributing, familiarize yourself with TradChem:
+
+- **Read the [Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md)** - Understand all components
+- **Explore the [README](README.md)** - Get an overview of the project
+- **Check [Issues](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/issues)** - Find areas to contribute
+- **Join [Discussions](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/discussions)** - Connect with the community
+
+### **2. Choose Your Contribution Type**
+
+- **Beginner**: Start with documentation, testing, or simple bug fixes
+- **Intermediate**: Work on features, data contributions, or tutorials
+- **Advanced**: Contribute to core algorithms, performance optimization, or new analysis methods
+
+### **3. Set Up Your Development Environment**
+
+Follow the [Development Setup](#development-setup) section below.
 
 ## 🛠️ **Development Setup**
 
 ### **Prerequisites**
-- Python 3.8 or higher
+
+- Python 3.7 or higher
 - Git
 - pip or conda
+- (Optional) RDKit for chemical analysis features
 
-### **Local Development Setup**
+### **Step 1: Fork and Clone**
 
 ```bash
-# 1. Fork and clone the repository
+# Fork the repository on GitHub
+# Then clone your fork
 git clone https://github.com/YOUR_USERNAME/Trad-Chem.git
 cd Trad-Chem
 
-# 2. Create a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# 3. Install development dependencies
-pip install -e ".[dev]"
-
-# 4. Install additional development tools
-pip install pre-commit black isort mypy
-
-# 5. Set up pre-commit hooks
-pre-commit install
+# Add the original repository as upstream
+git remote add upstream https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem.git
 ```
 
-### **Development Dependencies**
+### **Step 2: Create Virtual Environment**
 
 ```bash
-# Install all development dependencies
-pip install -e ".[dev,docs,analysis]"
+# Create virtual environment
+python -m venv venv
 
-# Or install individually
-pip install pytest pytest-cov black flake8 mypy
-pip install sphinx sphinx-rtd-theme
-pip install rdkit-pypi pandas matplotlib seaborn
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
 ```
 
-### **IDE Setup**
+### **Step 3: Install Dependencies**
 
-#### **VS Code Configuration**
-Create `.vscode/settings.json`:
-```json
-{
-    "python.defaultInterpreterPath": "./venv/bin/python",
-    "python.linting.enabled": true,
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.formatting.provider": "black",
-    "python.testing.pytestEnabled": true,
-    "python.testing.unittestEnabled": false
-}
+```bash
+# Install in development mode
+pip install -e ".[dev]"
+
+# Install additional development tools
+pip install pre-commit black isort flake8 pytest pytest-cov
 ```
 
-#### **PyCharm Configuration**
-- Set project interpreter to your virtual environment
-- Enable code inspection and formatting
-- Configure pytest as test runner
+### **Step 4: Set Up Pre-commit Hooks**
 
-## 💻 **Code Contributions**
+```bash
+# Install pre-commit hooks
+pre-commit install
 
-### **Code Style Guidelines**
+# Run pre-commit on all files
+pre-commit run --all-files
+```
 
-#### **Python Code Style**
-- Follow [PEP 8](https://www.python.org/dev/peps/pep-0008/) style guide
-- Use Black for code formatting (line length: 88 characters)
-- Use type hints for all function parameters and return values
-- Write docstrings for all public functions and classes
+### **Step 5: Verify Installation**
 
-#### **Example Code Structure**
+```bash
+# Run tests to ensure everything works
+pytest
+
+# Test the package
+python -c "from tradchem import TradChem; tc = TradChem(); print('✅ Setup complete!')"
+```
+
+## 📝 **Code Contribution Guidelines**
+
+### **Code Style**
+
+TradChem follows PEP 8 style guidelines with some modifications:
+
 ```python
-from typing import List, Dict, Optional, Any
-import logging
+# Use descriptive variable names
+medicine_data = load_medicine_data()
+chemical_analysis = analyze_chemical_structures(medicines)
 
-logger = logging.getLogger(__name__)
-
-def analyze_medicines(
-    medicines: List[Dict[str, Any]], 
-    analysis_type: str = "basic"
-) -> Dict[str, Any]:
-    """
-    Analyze traditional medicines for various properties.
+# Use type hints
+def analyze_medicines(medicines: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Analyze traditional medicine data.
     
     Args:
         medicines: List of medicine dictionaries
-        analysis_type: Type of analysis to perform
         
     Returns:
         Dictionary containing analysis results
-        
-    Raises:
-        ValueError: If analysis_type is not supported
     """
-    if analysis_type not in ["basic", "chemical", "statistical"]:
-        raise ValueError(f"Unsupported analysis type: {analysis_type}")
+    pass
+
+# Use docstrings for all functions and classes
+class TradChem:
+    """Traditional medicine chemical analysis package.
     
-    # Implementation here
-    results = {}
+    A comprehensive class for analyzing traditional medicine data,
+    chemical structures, and molecular properties.
+    """
     
-    logger.info(f"Completed {analysis_type} analysis for {len(medicines)} medicines")
-    return results
+    def __init__(self, database_path: Optional[str] = None):
+        """Initialize TradChem with optional database path.
+        
+        Args:
+            database_path: Path to the traditional medicine database
+        """
+        pass
+```
+
+### **File Organization**
+
+```
+tradchem/
+├── __init__.py              # Package initialization
+├── tradchem.py              # Main TradChem class
+├── version.py               # Version information
+├── cli.py                   # Command-line interface
+├── utils/                   # Utility modules
+│   ├── __init__.py
+│   ├── smiles_utils.py      # SMILES utilities
+│   └── data_utils.py        # Data processing utilities
+├── medicine_systems/        # Traditional medicine systems
+│   ├── __init__.py
+│   └── ayurvedic.py         # Ayurvedic medicine analysis
+└── tests/                   # Test files
+    ├── __init__.py
+    ├── test_tradchem.py     # Main tests
+    ├── test_chemical.py     # Chemical analysis tests
+    └── test_utils.py        # Utility tests
 ```
 
 ### **Adding New Features**
 
-#### **1. Create a Feature Branch**
-```bash
-git checkout -b feature/new-analysis-method
-```
+1. **Create a feature branch**
+   ```bash
+   git checkout -b feature/new-analysis-method
+   ```
 
-#### **2. Implement the Feature**
-- Add new methods to appropriate classes
-- Include comprehensive docstrings
-- Add type hints
-- Follow existing code patterns
+2. **Implement the feature**
+   ```python
+   # Add new method to TradChem class
+   def new_analysis_method(self, data: List[Dict[str, Any]]) -> Dict[str, Any]:
+       """Perform new analysis on traditional medicine data.
+       
+       Args:
+           data: List of medicine dictionaries
+           
+       Returns:
+           Dictionary containing analysis results
+       """
+       # Implementation here
+       pass
+   ```
 
-#### **3. Add Tests**
-```python
-# test_tradchem.py
-import pytest
-from tradchem import TradChem
+3. **Add tests**
+   ```python
+   # tests/test_tradchem.py
+   def test_new_analysis_method():
+       """Test the new analysis method."""
+       tc = TradChem()
+       test_data = [{"product_name": "Test Medicine"}]
+       result = tc.new_analysis_method(test_data)
+       assert isinstance(result, dict)
+   ```
 
-def test_new_analysis_method():
-    """Test the new analysis method."""
-    tc = TradChem()
-    
-    # Test with sample data
-    test_medicines = [
-        {"product_name": "Test Medicine", "benefits": ["Test Benefit"]}
-    ]
-    
-    results = tc.new_analysis_method(test_medicines)
-    
-    assert isinstance(results, dict)
-    assert "analysis_type" in results
-    # Add more specific assertions
-```
-
-#### **4. Update Documentation**
-- Add docstring examples
-- Update README if needed
-- Add to API documentation
+4. **Update documentation**
+   - Add docstring
+   - Update README if needed
+   - Add to knowledge graph
 
 ### **Bug Fixes**
 
-#### **1. Reproduce the Bug**
-- Create a minimal test case
-- Document the expected vs actual behavior
+1. **Create a bug fix branch**
+   ```bash
+   git checkout -b fix/bug-description
+   ```
 
-#### **2. Fix the Issue**
-- Implement the fix
-- Add regression tests
-- Update documentation if needed
+2. **Write a test that reproduces the bug**
+   ```python
+   def test_bug_reproduction():
+       """Test that reproduces the bug."""
+       tc = TradChem()
+       # Test case that fails
+       pass
+   ```
 
-#### **3. Test the Fix**
-```bash
-# Run all tests
-pytest
+3. **Fix the bug**
+   ```python
+   # Fix the implementation
+   def fixed_method(self):
+       # Fixed implementation
+       pass
+   ```
 
-# Run specific test
-pytest tests/test_tradchem.py::test_specific_function
+4. **Ensure the test passes**
+   ```bash
+   pytest tests/test_tradchem.py::test_bug_reproduction
+   ```
 
-# Run with coverage
-pytest --cov=tradchem
-```
+## 📊 **Data Contribution Guidelines**
 
-## 📊 **Data Contributions**
+### **Traditional Medicine Data Format**
 
-### **Adding Traditional Medicine Data**
-
-#### **1. Using CSV Template**
-```bash
-# Generate template
-python -m tradchem.cli template --file new_medicines.csv
-
-# Fill in the data and submit
-```
-
-#### **2. Using JSON Format**
 ```json
 {
-  "product_name": "New Medicine",
-  "scientific_name": "Scientific Name",
-  "description": "Description of the medicine",
-  "traditional_system": "Ayurvedic Medicine",
+  "product_name": "Turmeric Extract",
+  "scientific_name": "Curcuma longa",
+  "description": "Traditional medicine used for anti-inflammatory properties",
+  "traditional_system": "Ayurveda",
   "geographic_origin": "India",
-  "benefits": ["Benefit 1", "Benefit 2"],
-  "diseases": ["Disease 1", "Disease 2"],
+  "benefits": ["Anti-inflammatory", "Antioxidant", "Digestive aid"],
+  "diseases": ["Arthritis", "Digestive disorders"],
   "chemical_composition": {
     "ingredients": {
-      "Active Compound": {
+      "Curcumin": {
         "smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
         "molecular_weight": 368.38,
-        "cas_number": "458-37-7",
-        "pubchem_id": "969516"
+        "formula": "C21H20O6",
+        "cas_number": "458-37-7"
       }
     }
   },
-  "source": "Reference source",
-  "source_url": "https://example.com/reference"
+  "references": [
+    {
+      "title": "Curcumin: A Review of Its Effects on Human Health",
+      "authors": ["Aggarwal BB", "Harikumar KB"],
+      "journal": "Foods",
+      "year": 2017,
+      "doi": "10.3390/foods6100092"
+    }
+  ]
 }
 ```
 
-#### **3. Data Quality Standards**
-- **Accuracy**: Verify all information is correct
-- **Completeness**: Include all required fields
-- **Consistency**: Follow established naming conventions
-- **Citations**: Provide reliable sources
-- **SMILES Validation**: Ensure chemical structures are valid
+### **Data Quality Standards**
 
-### **Adding Chemical Data**
+1. **Accuracy**: Ensure all data is accurate and verified
+2. **Completeness**: Provide as much information as possible
+3. **Consistency**: Follow the established data format
+4. **References**: Include scientific references when available
+5. **Validation**: Validate SMILES notations and molecular data
 
-#### **SMILES Notation Guidelines**
-- Use canonical SMILES format
-- Validate with RDKit or similar tools
-- Include molecular weight and other properties
-- Add PubChem IDs when available
+### **Submitting Data Contributions**
 
-#### **Example Chemical Data**
-```json
-{
-  "ingredient_name": "Curcumin",
-  "smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
-  "molecular_weight": 368.38,
-  "molecular_formula": "C21H20O6",
-  "cas_number": "458-37-7",
-  "pubchem_id": "969516",
-  "iupac_name": "(1E,6E)-1,7-bis(4-hydroxy-3-methoxyphenyl)hepta-1,6-diene-3,5-dione"
-}
-```
+1. **Create a data file**
+   ```bash
+   # Create data file
+   touch data/new_medicines.json
+   ```
 
-## 📚 **Documentation Contributions**
+2. **Add your data**
+   ```json
+   [
+     {
+       "product_name": "Your Medicine",
+       "scientific_name": "Scientific Name",
+       // ... other fields
+     }
+   ]
+   ```
 
-### **Code Documentation**
+3. **Validate the data**
+   ```python
+   from tradchem import TradChem
+   tc = TradChem()
+   
+   # Load and validate
+   medicines = tc.load_data('data/new_medicines.json')
+   validation = tc.validate_data(medicines)
+   print(f"Data quality: {validation['data_quality_score']:.2%}")
+   ```
 
-#### **Docstring Standards**
-```python
-def complex_function(
-    param1: str, 
-    param2: Optional[int] = None
-) -> Dict[str, Any]:
-    """
-    Brief description of what the function does.
-    
-    Longer description if needed, explaining the purpose,
-    algorithm, or important details.
-    
-    Args:
-        param1: Description of first parameter
-        param2: Description of second parameter (optional)
-        
-    Returns:
-        Description of return value and structure
-        
-    Raises:
-        ValueError: When parameter validation fails
-        TypeError: When parameter types are incorrect
-        
-    Example:
-        >>> result = complex_function("example", 42)
-        >>> print(result)
-        {'status': 'success', 'data': [...]}
-        
-    Note:
-        Important notes about usage or limitations
-    """
-    pass
-```
+4. **Submit via pull request**
 
-### **Tutorial and Example Contributions**
+## 🧪 **Testing Guidelines**
 
-#### **Creating New Tutorials**
-1. Create a new notebook in `examples/` or `colab_examples/`
-2. Follow the existing notebook structure
-3. Include clear explanations and comments
-4. Test the notebook in a clean environment
+### **Running Tests**
 
-#### **Example Tutorial Structure**
-```python
-# Tutorial: Advanced Chemical Analysis
-"""
-# Advanced Chemical Analysis with TradChem
-
-This tutorial demonstrates advanced chemical analysis techniques
-using the TradChem package.
-
-## Learning Objectives
-- Understand molecular property calculations
-- Perform drug-likeness analysis
-- Create chemical visualizations
-
-## Prerequisites
-- Basic Python knowledge
-- Understanding of chemical structures
-"""
-
-# Import required libraries
-from tradchem import TradChem
-from rdkit import Chem
-import matplotlib.pyplot as plt
-
-# Tutorial content with explanations
-```
-
-## 🧪 **Testing Contributions**
-
-### **Writing Tests**
-
-#### **Test Structure**
-```python
-# test_new_feature.py
-import pytest
-from tradchem import TradChem
-
-class TestNewFeature:
-    """Test suite for new feature."""
-    
-    def setup_method(self):
-        """Set up test fixtures."""
-        self.tc = TradChem()
-        self.sample_data = [
-            {"product_name": "Test Medicine", "benefits": ["Test"]}
-        ]
-    
-    def test_basic_functionality(self):
-        """Test basic functionality of new feature."""
-        result = self.tc.new_feature(self.sample_data)
-        assert result is not None
-        assert isinstance(result, dict)
-    
-    def test_edge_cases(self):
-        """Test edge cases and error conditions."""
-        with pytest.raises(ValueError):
-            self.tc.new_feature([])
-    
-    def test_integration(self):
-        """Test integration with existing features."""
-        # Test how new feature works with existing functionality
-        pass
-```
-
-#### **Running Tests**
 ```bash
 # Run all tests
 pytest
@@ -392,151 +344,307 @@ pytest
 pytest tests/test_tradchem.py
 
 # Run with coverage
-pytest --cov=tradchem --cov-report=html
+pytest --cov=tradchem
 
 # Run with verbose output
 pytest -v
-
-# Run tests in parallel
-pytest -n auto
 ```
 
-### **Test Coverage**
-- Aim for >80% code coverage
-- Test both success and failure cases
-- Test edge cases and boundary conditions
-- Test integration with other features
+### **Writing Tests**
+
+```python
+# tests/test_tradchem.py
+import pytest
+from tradchem import TradChem
+
+class TestTradChem:
+    """Test cases for TradChem class."""
+    
+    def setup_method(self):
+        """Set up test fixtures."""
+        self.tc = TradChem()
+        self.sample_data = [
+            {
+                "product_name": "Test Medicine",
+                "benefits": ["Test Benefit"],
+                "diseases": ["Test Disease"]
+            }
+        ]
+    
+    def test_initialization(self):
+        """Test TradChem initialization."""
+        assert self.tc is not None
+        assert hasattr(self.tc, 'data')
+    
+    def test_load_data(self):
+        """Test data loading functionality."""
+        # Test implementation
+        pass
+    
+    def test_validate_data(self):
+        """Test data validation."""
+        validation = self.tc.validate_data(self.sample_data)
+        assert validation['total_medicines'] == 1
+        assert validation['valid_medicines'] == 1
+    
+    def test_search_medicines(self):
+        """Test medicine search functionality."""
+        results = self.tc.search_medicines("Test", limit=5)
+        assert isinstance(results, list)
+```
+
+### **Test Categories**
+
+1. **Unit Tests**: Test individual functions and methods
+2. **Integration Tests**: Test how components work together
+3. **Data Tests**: Test data loading and validation
+4. **Performance Tests**: Test performance with large datasets
+5. **Edge Case Tests**: Test boundary conditions and error handling
+
+## 📚 **Documentation Guidelines**
+
+### **Code Documentation**
+
+```python
+def analyze_chemical_structures(self, medicines: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Analyze chemical structures in traditional medicine data.
+    
+    This method analyzes the chemical composition of traditional medicines,
+    including SMILES validation, molecular property calculations, and
+    chemical diversity analysis.
+    
+    Args:
+        medicines: List of medicine dictionaries containing chemical composition data
+        
+    Returns:
+        Dictionary containing analysis results with the following keys:
+        - total_compounds: Total number of chemical compounds
+        - valid_smiles: Number of valid SMILES notations
+        - invalid_smiles: Number of invalid SMILES notations
+        - avg_molecular_weight: Average molecular weight
+        - unique_formulas: Number of unique chemical formulas
+        
+    Raises:
+        ValueError: If medicines data is invalid
+        KeyError: If required chemical composition fields are missing
+        
+    Example:
+        >>> tc = TradChem()
+        >>> medicines = [{"chemical_composition": {"ingredients": {"Curcumin": {"smiles": "CC1=CC(=C(C=C1)O)C(=O)O"}}}}]
+        >>> analysis = tc.analyze_chemical_structures(medicines)
+        >>> print(analysis['total_compounds'])
+        1
+    """
+    pass
+```
+
+### **Tutorial Documentation**
+
+Create tutorials in the `colab_examples/` directory:
+
+```python
+# colab_examples/tutorial_name.ipynb
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Tutorial Title\n",
+    "\n",
+    "This tutorial demonstrates how to use TradChem for specific analysis."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Installation\n",
+    "!pip install tradchem\n",
+    "\n",
+    "# Import\n",
+    "from tradchem import TradChem\n",
+    "tc = TradChem()"
+   ]
+  }
+ ]
+}
+```
+
+### **Knowledge Graph Updates**
+
+Update the knowledge graph when adding new features:
+
+```markdown
+# colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md
+
+## New Feature Section
+
+### 🆕 **New Analysis Method**
+**Purpose**: Describe what the new feature does
+
+**Components**:
+- `TradChem.new_method()` - Brief description
+
+**Use When**:
+- When you need to do X
+- When you want to analyze Y
+
+**Example**:
+```python
+result = tc.new_method(data)
+```
+```
 
 ## 🔄 **Pull Request Process**
 
 ### **1. Prepare Your Changes**
-```bash
-# Ensure you're on the main branch and up to date
-git checkout main
-git pull origin main
 
-# Create a feature branch
-git checkout -b feature/your-feature-name
+```bash
+# Ensure you're on your feature branch
+git checkout feature/your-feature
 
 # Make your changes
 # ... edit files ...
 
-# Add and commit your changes
+# Add your changes
 git add .
-git commit -m "Add new feature: brief description"
 
-# Push to your fork
-git push origin feature/your-feature-name
+# Commit with descriptive message
+git commit -m "Add new chemical analysis method
+
+- Implement molecular property calculation
+- Add SMILES validation improvements
+- Update documentation and tests
+
+Fixes #123"
 ```
 
-### **2. Create Pull Request**
+### **2. Update Your Branch**
+
+```bash
+# Pull latest changes from upstream
+git fetch upstream
+git rebase upstream/main
+
+# Push your changes
+git push origin feature/your-feature
+```
+
+### **3. Create Pull Request**
+
 1. Go to your fork on GitHub
 2. Click "New Pull Request"
 3. Select your feature branch
-4. Fill out the PR template:
+4. Fill out the pull request template:
 
 ```markdown
 ## Description
-Brief description of changes
+Brief description of your changes
 
 ## Type of Change
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Documentation update
-- [ ] Data addition
-- [ ] Test addition
+- [ ] Data contribution
+- [ ] Other (please describe)
 
 ## Testing
-- [ ] All tests pass
-- [ ] New tests added
-- [ ] Manual testing completed
+- [ ] Tests pass locally
+- [ ] Added new tests
+- [ ] Updated existing tests
+
+## Documentation
+- [ ] Updated docstrings
+- [ ] Updated README
+- [ ] Updated knowledge graph
+- [ ] Added tutorials
 
 ## Checklist
 - [ ] Code follows style guidelines
-- [ ] Documentation updated
-- [ ] Tests added/updated
+- [ ] Self-review completed
 - [ ] No breaking changes
+- [ ] All tests pass
 ```
 
-### **3. Code Review Process**
-- Maintainers will review your PR
-- Address any feedback or requested changes
-- Ensure all CI checks pass
-- Update PR as needed
+### **4. Review Process**
 
-### **4. Merge and Release**
-- Once approved, your PR will be merged
-- Changes will be included in the next release
-- You'll be credited in the release notes
+1. **Automated Checks**: CI/CD will run tests and style checks
+2. **Code Review**: Maintainers will review your code
+3. **Feedback**: Address any feedback or requested changes
+4. **Merge**: Once approved, your changes will be merged
 
-## 📋 **Contribution Checklist**
+## 🌍 **Community Guidelines**
 
-### **Before Submitting**
-- [ ] Code follows style guidelines (Black, flake8)
-- [ ] All tests pass
-- [ ] Documentation is updated
-- [ ] No breaking changes (or documented)
-- [ ] Commit messages are clear and descriptive
+### **Code of Conduct**
 
-### **For Data Contributions**
-- [ ] Data is accurate and verified
-- [ ] Sources are properly cited
-- [ ] SMILES notations are valid
-- [ ] Follows data format standards
+- **Be Respectful**: Treat all contributors with respect
+- **Be Inclusive**: Welcome contributors from all backgrounds
+- **Be Helpful**: Help others learn and contribute
+- **Be Patient**: Understand that everyone learns at their own pace
 
-### **For Code Contributions**
-- [ ] Type hints are included
-- [ ] Docstrings are comprehensive
-- [ ] Tests cover new functionality
-- [ ] No hardcoded values or secrets
+### **Communication**
 
-## 🏆 **Recognition and Credits**
+- **Issues**: Use GitHub issues for bug reports and feature requests
+- **Discussions**: Use GitHub discussions for questions and ideas
+- **Pull Requests**: Use pull requests for code contributions
+- **Email**: Use contributors@tradchem.org for private matters
+
+### **Getting Help**
+
+- **Documentation**: Check the knowledge graph and tutorials
+- **Issues**: Search existing issues for similar problems
+- **Discussions**: Ask questions in GitHub discussions
+- **Community**: Connect with other contributors
+
+## 🏆 **Recognition**
 
 ### **Contributor Recognition**
-- All contributors are listed in `CONTRIBUTORS.md`
-- Significant contributions are highlighted in release notes
-- Contributors receive recognition in documentation
+
+- **Contributors List**: All contributors are listed in the README
+- **Release Notes**: Contributors are credited in release notes
+- **Documentation**: Contributors are acknowledged in documentation
+- **Community**: Recognition in community discussions
 
 ### **Types of Recognition**
-- **Code Contributors**: Listed in contributors file
-- **Data Contributors**: Acknowledged in data sources
-- **Documentation Contributors**: Credited in docs
-- **Reviewers**: Listed in PR acknowledgments
 
-## 📞 **Getting Help**
+- **Code Contributors**: Listed in contributors section
+- **Data Contributors**: Acknowledged in data documentation
+- **Documentation Contributors**: Credited in tutorials and guides
+- **Community Contributors**: Recognized for community support
 
-### **Communication Channels**
-- **GitHub Issues**: Bug reports and feature requests
-- **GitHub Discussions**: General questions and discussions
-- **Pull Requests**: Code review and feedback
-- **Email**: For sensitive or private matters
+### **Contributor Levels**
 
-### **Resources**
-- **Documentation**: Check README.md and docstrings
-- **Examples**: Explore example notebooks
-- **Tests**: Look at test files for usage examples
-- **Issues**: Search existing issues for similar problems
+- **New Contributor**: First contribution
+- **Regular Contributor**: Multiple contributions
+- **Core Contributor**: Significant contributions
+- **Maintainer**: Long-term project leadership
 
-## 📜 **Code of Conduct**
+## 📞 **Support and Resources**
 
-### **Our Standards**
-- Be respectful and inclusive
-- Use welcoming and inclusive language
-- Be collaborative and constructive
-- Focus on what is best for the community
+### **Getting Started Resources**
 
-### **Unacceptable Behavior**
-- Harassment or discrimination
-- Trolling or insulting comments
-- Publishing others' private information
-- Any conduct inappropriate in a professional setting
+- **[Knowledge Graph](colab_examples/TRADCHEM_KNOWLEDGE_GRAPH.md)**: Complete component overview
+- **[Basic Tutorial](colab_examples/tradchem_basic_usage.ipynb)**: Beginner-friendly tutorial
+- **[Chemical Analysis Tutorial](colab_examples/tradchem_chemical_analysis.ipynb)**: Advanced features
+- **[Examples](examples/)**: Code examples and sample data
 
-## 🎉 **Thank You!**
+### **Development Resources**
 
-Thank you for contributing to TradChem! Your contributions help make traditional medicine research more accessible and scientific. Whether you're adding code, data, documentation, or just helping with discussions, every contribution is valuable.
+- **[Issues](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/issues)**: Bug reports and feature requests
+- **[Discussions](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/discussions)**: Community discussions
+- **[Wiki](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/wiki)**: Development documentation
 
-**Happy contributing! 🌿🧪**
+### **Contact Information**
+
+- **Email**: contributors@tradchem.org
+- **GitHub**: [@INSTITUTE-OF-SCIENTIFIC-INFORMATICS](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS)
+- **Discussions**: [GitHub Discussions](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem/discussions)
 
 ---
 
-**Built with ❤️ by the TradChem Community** 
+**🤝 Thank you for contributing to TradChem!**
+
+*Your contributions help advance traditional medicine research and make this knowledge accessible to everyone.* 
