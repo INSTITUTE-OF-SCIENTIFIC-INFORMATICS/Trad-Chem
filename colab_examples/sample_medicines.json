@@ -1,0 +1,92 @@
+[
+  {
+    "product_name": "Turmeric Extract",
+    "scientific_name": "Curcuma longa",
+    "description": "Traditional anti-inflammatory herb",
+    "traditional_system": "Ayurveda",
+    "geographic_origin": "India",
+    "benefits": ["Anti-inflammatory", "Antioxidant", "Digestive aid"],
+    "diseases": ["Arthritis", "Digestive disorders"],
+    "chemical_composition": {
+      "ingredients": {
+        "Curcumin": {
+          "smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
+          "molecular_weight": 368.38,
+          "formula": "C21H20O6"
+        }
+      }
+    }
+  },
+  {
+    "product_name": "Ashwagandha Root",
+    "scientific_name": "Withania somnifera",
+    "description": "Adaptogenic herb for stress relief",
+    "traditional_system": "Ayurveda",
+    "geographic_origin": "India",
+    "benefits": ["Stress relief", "Energy boost", "Immune support"],
+    "diseases": ["Anxiety", "Fatigue", "Stress"],
+    "chemical_composition": {
+      "ingredients": {
+        "Withanolides": {
+          "smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
+          "molecular_weight": 470.6,
+          "formula": "C28H38O6"
+        }
+      }
+    }
+  },
+  {
+    "product_name": "Ginger Root",
+    "scientific_name": "Zingiber officinale",
+    "description": "Traditional digestive aid",
+    "traditional_system": "TCM",
+    "geographic_origin": "China",
+    "benefits": ["Digestive aid", "Anti-nausea", "Anti-inflammatory"],
+    "diseases": ["Nausea", "Digestive disorders", "Motion sickness"],
+    "chemical_composition": {
+      "ingredients": {
+        "Gingerol": {
+          "smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
+          "molecular_weight": 294.4,
+          "formula": "C17H26O4"
+        }
+      }
+    }
+  },
+  {
+    "product_name": "Ginseng Root",
+    "scientific_name": "Panax ginseng",
+    "description": "Energy and vitality herb",
+    "traditional_system": "TCM",
+    "geographic_origin": "China",
+    "benefits": ["Energy boost", "Immune support", "Stress relief"],
+    "diseases": ["Fatigue", "Low energy", "Stress"],
+    "chemical_composition": {
+      "ingredients": {
+        "Ginsenosides": {
+          "smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
+          "molecular_weight": 800.0,
+          "formula": "C42H72O14"
+        }
+      }
+    }
+  },
+  {
+    "product_name": "Echinacea Purpurea",
+    "scientific_name": "Echinacea purpurea",
+    "description": "Immune system support",
+    "traditional_system": "Western Herbalism",
+    "geographic_origin": "North America",
+    "benefits": ["Immune support", "Cold prevention", "Anti-inflammatory"],
+    "diseases": ["Colds", "Flu", "Immune weakness"],
+    "chemical_composition": {
+      "ingredients": {
+        "Echinacoside": {
+          "smiles": "CC1=CC(=C(C=C1)O)C(=O)O",
+          "molecular_weight": 786.7,
+          "formula": "C35H46O20"
+        }
+      }
+    }
+  }
+] 
