@@ -257,7 +257,7 @@ class DataExporter:
         try:
             with open(file_path, 'w', encoding='utf-8') as f:
                 if pretty:
-                    json.dump(medicines, f, indent=4, ensure_ascii=False)
+                    json.dump(medicines, f, indent=2, ensure_ascii=False)
                 else:
                     json.dump(medicines, f, ensure_ascii=False)
             
@@ -270,10 +270,10 @@ class DataExporter:
 
 def create_sample_csv_template(file_path: str) -> bool:
     """
-    Create a sample CSV template for data entry.
+    Create a sample CSV template for medicine data.
     
     Args:
-        file_path: Output file path
+        file_path: Path where to create the template
         
     Returns:
         True if successful, False otherwise
@@ -281,26 +281,200 @@ def create_sample_csv_template(file_path: str) -> bool:
     try:
         sample_data = [
             {
-                "product_name": "Sample Medicine 1",
-                "benefits": "Enhances vitality; Boosts immunity",
-                "diseases": "Weakness; Fatigue",
-                "ingredients": "Cannabis; Bee Honey",
-                "smiles": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)O; C(C1C(C(C(C(O1)O)O)O)O)O"
+                "product_name": "Turmeric",
+                "benefits": "Anti-inflammatory; Antioxidant; Digestive health",
+                "diseases": "Arthritis; Inflammation; Digestive disorders",
+                "ingredients": "Curcumin; Turmerone; Zingiberene",
+                "smiles": "CC(=O)OC1=CC=CC=C1C(=O)O; CC1=CC=C(C=C1)C(=O)CC2=CC=C(C=C2)OC; CC1=CC=C(C=C1)C(=O)CC2=CC=C(C=C2)OC"
             },
             {
-                "product_name": "Sample Medicine 2",
-                "benefits": "Reduces inflammation; Supports digestion",
-                "diseases": "Inflammation; Digestive issues",
-                "ingredients": "Turmeric; Ginger",
-                "smiles": "CC1=CC(=C(C=C1C(=O)O)O)C(=O)O; CC(C)(C)CC1=CC(=C(C=C1)O)C(=O)O"
+                "product_name": "Ashwagandha",
+                "benefits": "Stress relief; Energy boost; Immune support",
+                "diseases": "Stress; Anxiety; Fatigue",
+                "ingredients": "Withanolides; Withaferin A; Withanone",
+                "smiles": "CC1=CC=C(C=C1)C(=O)CC2=CC=C(C=C2)OC; CC1=CC=C(C=C1)C(=O)CC2=CC=C(C=C2)OC; CC1=CC=C(C=C1)C(=O)CC2=CC=C(C=C2)OC"
             }
         ]
         
         df = pd.DataFrame(sample_data)
         df.to_csv(file_path, index=False, encoding='utf-8')
-        logger.info(f"Sample CSV template created at {file_path}")
+        logger.info(f"Sample CSV template created: {file_path}")
         return True
         
     except Exception as e:
         logger.error(f"Error creating CSV template: {e}")
-        return False 
+        return False
+
+# ============================================================================
+# CHEMICAL ANALYSIS UTILITIES
+# ============================================================================
+
+def calculate_molecular_properties(smiles: str) -> Dict[str, Any]:
+    """
+    Calculate molecular properties for a given SMILES string.
+    
+    Args:
+        smiles: SMILES string
+        
+    Returns:
+        Dictionary containing molecular properties
+    """
+    try:
+        # Import smiles_utils to use its molecular property calculation
+        from .smiles_utils import get_molecular_properties, validate_smiles
+        
+        if not validate_smiles(smiles):
+            return {"error": "Invalid SMILES string"}
+        
+        properties = get_molecular_properties(smiles)
+        
+        # Add molecular formula if available
+        try:
+            from rdkit import Chem
+            mol = Chem.MolFromSmiles(smiles)
+            if mol:
+                properties["molecular_formula"] = Chem.rdMolDescriptors.CalcMolFormula(mol)
+        except ImportError:
+            pass
+        
+        return properties
+        
+    except Exception as e:
+        logger.error(f"Error calculating molecular properties: {e}")
+        return {"error": str(e)}
+
+def validate_smiles(smiles: str) -> bool:
+    """
+    Validate SMILES string.
+    
+    Args:
+        smiles: SMILES string to validate
+        
+    Returns:
+        True if valid, False otherwise
+    """
+    try:
+        from .smiles_utils import validate_smiles as smiles_validate
+        return smiles_validate(smiles)
+    except Exception as e:
+        logger.error(f"Error validating SMILES: {e}")
+        return False
+
+def canonicalize_smiles(smiles: str) -> Optional[str]:
+    """
+    Convert SMILES to canonical form.
+    
+    Args:
+        smiles: Input SMILES string
+        
+    Returns:
+        Canonical SMILES string or None if invalid
+    """
+    try:
+        from .smiles_utils import canonicalize_smiles as smiles_canonicalize
+        return smiles_canonicalize(smiles)
+    except Exception as e:
+        logger.error(f"Error canonicalizing SMILES: {e}")
+        return None
+
+# ============================================================================
+# DATA VALIDATION UTILITIES
+# ============================================================================
+
+def validate_medicine_data(medicine: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Validate medicine data structure and content.
+    
+    Args:
+        medicine: Medicine dictionary to validate
+        
+    Returns:
+        Dictionary containing validation results
+    """
+    validation_result = {
+        "valid": True,
+        "errors": [],
+        "warnings": []
+    }
+    
+    # Check required fields
+    required_fields = ["product_name", "benefits", "diseases", "chemical_composition"]
+    for field in required_fields:
+        if field not in medicine:
+            validation_result["valid"] = False
+            validation_result["errors"].append(f"Missing required field: {field}")
+    
+    # Check data types
+    if "product_name" in medicine and not isinstance(medicine["product_name"], str):
+        validation_result["valid"] = False
+        validation_result["errors"].append("product_name must be a string")
+    
+    if "benefits" in medicine and not isinstance(medicine["benefits"], list):
+        validation_result["valid"] = False
+        validation_result["errors"].append("benefits must be a list")
+    
+    if "diseases" in medicine and not isinstance(medicine["diseases"], list):
+        validation_result["valid"] = False
+        validation_result["errors"].append("diseases must be a list")
+    
+    if "chemical_composition" in medicine and not isinstance(medicine["chemical_composition"], dict):
+        validation_result["valid"] = False
+        validation_result["errors"].append("chemical_composition must be a dictionary")
+    
+    # Validate SMILES if present
+    if "chemical_composition" in medicine and "ingredients" in medicine["chemical_composition"]:
+        for ingredient_name, ingredient_data in medicine["chemical_composition"]["ingredients"].items():
+            if isinstance(ingredient_data, dict) and "smiles" in ingredient_data:
+                smiles = ingredient_data["smiles"]
+                if not validate_smiles(smiles):
+                    validation_result["warnings"].append(f"Invalid SMILES for {ingredient_name}: {smiles}")
+    
+    return validation_result
+
+def clean_medicine_data(medicine: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Clean and standardize medicine data.
+    
+    Args:
+        medicine: Medicine dictionary to clean
+        
+    Returns:
+        Cleaned medicine dictionary
+    """
+    cleaned_medicine = medicine.copy()
+    
+    # Standardize string fields
+    if "product_name" in cleaned_medicine:
+        cleaned_medicine["product_name"] = str(cleaned_medicine["product_name"]).strip()
+    
+    if "scientific_name" in cleaned_medicine:
+        cleaned_medicine["scientific_name"] = str(cleaned_medicine["scientific_name"]).strip()
+    
+    if "description" in cleaned_medicine:
+        cleaned_medicine["description"] = str(cleaned_medicine["description"]).strip()
+    
+    # Ensure lists are properly formatted
+    if "benefits" in cleaned_medicine:
+        if isinstance(cleaned_medicine["benefits"], str):
+            cleaned_medicine["benefits"] = [b.strip() for b in cleaned_medicine["benefits"].split(",") if b.strip()]
+        elif not isinstance(cleaned_medicine["benefits"], list):
+            cleaned_medicine["benefits"] = []
+    
+    if "diseases" in cleaned_medicine:
+        if isinstance(cleaned_medicine["diseases"], str):
+            cleaned_medicine["diseases"] = [d.strip() for d in cleaned_medicine["diseases"].split(",") if d.strip()]
+        elif not isinstance(cleaned_medicine["diseases"], list):
+            cleaned_medicine["diseases"] = []
+    
+    # Clean chemical composition
+    if "chemical_composition" in cleaned_medicine and isinstance(cleaned_medicine["chemical_composition"], dict):
+        if "ingredients" in cleaned_medicine["chemical_composition"]:
+            for ingredient_name, ingredient_data in cleaned_medicine["chemical_composition"]["ingredients"].items():
+                if isinstance(ingredient_data, dict) and "smiles" in ingredient_data:
+                    smiles = ingredient_data["smiles"]
+                    if validate_smiles(smiles):
+                        canonical_smiles = canonicalize_smiles(smiles)
+                        if canonical_smiles:
+                            ingredient_data["smiles"] = canonical_smiles
+    
+    return cleaned_medicine 
