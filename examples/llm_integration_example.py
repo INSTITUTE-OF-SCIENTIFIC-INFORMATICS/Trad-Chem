@@ -1,50 +1,26 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-TradChem LLM Integration Example
-
-Simple example showing how to use TradChem database with LLM chatbots.
-Author: SaltyHeart
+Author: Anu Gamage
+LLM Integration Example for TradChem
 """
 
-from tradchem import llm_query, get_database_stats, search_by_benefits
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import tradchem
 
 def main():
-    """Main example demonstrating LLM integration functions."""
+    """Example usage of TradChem with LLM integration"""
     
-    print("TradChem Database - LLM Integration Example")
-    print("=" * 50)
+    # Basic query example
+    result = tradchem.llm_query("immunity", context_limit=2)
+    print(f"Found {result['total_found']} medicines for immunity")
     
-    # 1. Get database overview
-    print("\n1. Database Overview:")
-    stats = get_database_stats()
-    print(f"   Total medicines: {stats['total_medicines']}")
-    print(f"   Version: {stats['version']}")
-    
-    # 2. Simple LLM query
-    print("\n2. LLM Query Example:")
-    query = "turmeric anti-inflammatory"
-    response = llm_query(query, context_limit=3)
-    
-    print(f"   Query: '{query}'")
-    print(f"   Results found: {response['total_found']}")
-    
-    for i, medicine in enumerate(response['context_data'], 1):
-        print(f"   {i}. {medicine['product_name']}")
-        if medicine.get('benefits'):
-            print(f"      Benefits: {', '.join(medicine['benefits'][:2])}")
-    
-    # 3. Search by benefits
-    print("\n3. Search by Benefits:")
-    anti_inflammatory = search_by_benefits("inflammation", limit=3)
-    print(f"   Found {len(anti_inflammatory)} anti-inflammatory medicines")
-    
-    for med in anti_inflammatory[:2]:
-        print(f"   - {med.get('product_name', 'Unknown')}")
-    
-    print("\n✅ Example completed!")
-    print("   Use these functions in your Trad-Chem LLM chatbot.")
-
+    for medicine in result['context_data']:
+        print(f"- {medicine['product_name']}")
+        print(f"  Benefits: {', '.join(medicine['benefits'])}")
 
 if __name__ == "__main__":
     main() 
