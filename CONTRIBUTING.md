@@ -1,273 +1,172 @@
-# 🤝 Contributing to TradChem LLM
+# Contributing to TradChem Database
 
-Thank you for your interest in the TradChem LLM project! We welcome all forms of contributions, including code, data, documentation, and community support.
+Thank you for your interest in contributing to the TradChem traditional medicine database! This project is designed to integrate with our [Trad-Chem LLM chatbot](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem-LLM).
 
-## 🌟 **Ways to Contribute**
+## 🎯 Main Areas for Contribution
 
-### **📊 Data Contribution (Most Important)**
-Adding traditional medicine data is our top priority:
+### 1. **Database Contributions** (Most Needed!)
+- **Add new traditional medicines** to the database
+- **Update existing medicine information** with more details
+- **Add chemical compositions** and SMILES notations
+- **Improve data quality** and fix errors
 
-#### **Quick Start**
-1. **Web Interface**: Visit the app and click "Add Medicine"
-2. **CSV Template**: Download the template and fill in your data
-3. **GitHub Issues**: Use our Issue template
-4. **JSON Format**: Developer-friendly structured data
+### 2. **LLM Integration Improvements**
+- Enhance search algorithms for better LLM responses
+- Improve data formatting for AI chatbots
+- Add new query types and response formats
 
-#### **Detailed Guides**
-- [📊 Complete Data Contribution Guide](CONTRIBUTING_DATA.md)
-- [📁 Contribution Directory Overview](contributions/README.md)
-- [📋 Data Quality Standards](contributions/guidelines/data_quality.md)
-- [🧪 SMILES Guidelines](contributions/guidelines/smiles_guidelines.md)
-- [📚 Citation Standards](contributions/guidelines/citation_standards.md)
+### 3. **Code Improvements**
+- Bug fixes and performance improvements
+- Documentation updates
+- Testing improvements
 
-### **💻 Code Contribution**
-Improve features, fix bugs, add new features:
+## 📊 Adding New Medicines to Database
 
-#### **Development Environment Setup**
+### Quick Method
+1. Edit `tradchem/data/tradchem_database.json`
+2. Add your medicine following this format:
+
+```json
+{
+    "product_name": "Medicine Name",
+    "scientific_name": "Scientific Name (if available)",
+    "traditional_system": "Ayurveda/TCM/Unani/etc",
+    "geographic_origin": "Country/Region",
+    "benefits": [
+        "Benefit 1",
+        "Benefit 2",
+        "Benefit 3"
+    ],
+    "diseases": [
+        "Disease 1",
+        "Disease 2"
+    ],
+    "chemical_composition": {
+        "ingredients": {
+            "Ingredient Name": {
+                "compound_name": "SMILES_notation_here",
+                "molecular_weight": 123.45
+            }
+        }
+    },
+    "source": "Your source/reference",
+    "date_added": "2024-01-01",
+    "entry_id": "TC_XXXXXX"
+}
+```
+
+### Using CSV Template
+1. Download `contributions/templates/medicine_template.csv`
+2. Fill in your data
+3. Submit via pull request
+
+## 🔬 Chemical Data Guidelines
+
+### SMILES Notations
+- Use standard SMILES format
+- Verify using online tools like ChemSketch or RDKit
+- Include molecular weight when possible
+
+### Data Quality Standards
+- **Accurate information only** - cite your sources
+- **Complete entries preferred** - fill as many fields as possible  
+- **Consistent naming** - use standard plant/medicine names
+- **Verify traditional uses** - cross-reference with reliable sources
+
+## 🤝 How to Contribute
+
+### For Database Updates
+1. **Fork** this repository
+2. **Clone** your fork locally
+3. **Create a branch**: `git checkout -b add-new-medicines`
+4. **Add your data** to `tradchem/data/tradchem_database.json`
+5. **Test your changes**: `python examples/llm_integration_example.py`
+6. **Commit**: `git commit -m "Add: [Medicine Name] and [Number] other medicines"`
+7. **Push**: `git push origin add-new-medicines`
+8. **Create Pull Request** with description of what you added
+
+### For Code Improvements
+1. Follow the same fork/branch/PR process
+2. Focus on the `tradchem/__init__.py` main functions:
+   - `llm_query()`
+   - `get_database_stats()`
+   - `search_by_*()` functions
+3. Test with the LLM integration example
+4. Keep changes focused on LLM integration
+
+## 🧪 Testing Your Contributions
+
+### Quick Test
+```python
+from tradchem import llm_query, get_database_stats
+
+# Test database loads correctly
+stats = get_database_stats()
+print(f"Database contains {stats['total_medicines']} medicines")
+
+# Test your new medicine appears in search
+results = llm_query("your_medicine_name", context_limit=5)
+print(f"Found {results['total_found']} results")
+```
+
+### Run Integration Example
 ```bash
-# Clone the project
-git clone https://github.com/your-username/tradchem-llm.git
-cd tradchem-llm
-
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-venv\Scripts\activate     # Windows
-
-# Install dependencies
-pip install -r requirements.txt
-pip install -r requirements-dev.txt  # Dev dependencies
+python examples/llm_integration_example.py
 ```
 
-#### **Code Standards**
-- Follow PEP 8 Python code style
-- Use type annotations
-- Write unit tests
-- Add English comments
+## 📋 Data Sources We Accept
 
-### **📚 Documentation Contribution**
-Improve docs, translations, tutorials:
+✅ **Accepted Sources:**
+- Peer-reviewed research papers
+- Traditional medicine textbooks
+- Government health databases
+- Verified ethnobotanical studies
+- Clinical trial data
 
-#### **Documentation Types**
-- API documentation
-- User guides
-- Developer docs
-- Translations
+❌ **Not Accepted:**
+- Wikipedia or unreliable web sources
+- Personal anecdotes without verification
+- Commercial product claims
+- Unverified social media posts
 
-### **🌍 Community Contribution**
-Answer questions, support users, promote the project:
+## 🎯 Priority Contributions
 
-#### **Community Activities**
-- Participate in GitHub Discussions
-- Support on Discord
-- Technical sharing and tutorials
-- Project promotion
+### High Priority
+1. **Ayurvedic medicines** with SMILES data
+2. **Traditional Chinese Medicine (TCM)** entries
+3. **Chemical composition data** for existing entries
+4. **Verified therapeutic uses** with references
 
-## 🚀 **Contribution Workflow**
+### Medium Priority  
+1. Geographic distribution improvements
+2. Scientific name standardization
+3. Additional traditional medicine systems
+4. Data quality improvements
 
-### **1. Preparation**
-- Fork the project to your GitHub account
-- Clone your fork locally
-- Set up the development environment
+## 🔄 Database Update Process
 
-### **2. Create a Branch**
-```bash
-# Create a feature branch
-git checkout -b feature/your-feature-name
-# or
-git checkout -b data/add-medicine-name
-```
+### Monthly Updates
+- We review and merge contributions monthly
+- Database version numbers are updated
+- Changes are reflected in the LLM chatbot
 
-### **3. Make Changes**
-- Write code or add data
-- Follow project standards
-- Test your changes
+### Quality Assurance
+- All contributions are reviewed for accuracy
+- Chemical data is verified using computational tools
+- Traditional uses are cross-referenced with literature
 
-### **4. Commit Changes**
-```bash
-# Add changes
-git add .
+## 💬 Questions and Support
 
-# Commit changes
-git commit -m "feat: add new traditional medicine data"
-# or
-git commit -m "fix: resolve SMILES validation issue"
-```
+- **Issues**: Open an issue on GitHub for questions
+- **Discussions**: Use GitHub Discussions for general questions
+- **LLM Integration**: Check the [Trad-Chem LLM repo](https://github.com/INSTITUTE-OF-SCIENTIFIC-INFORMATICS/Trad-Chem-LLM)
 
-### **5. Push Changes**
-```bash
-# Push to your fork
-git push origin feature/your-feature-name
-```
+## 📜 License and Attribution
 
-### **6. Create a Pull Request**
-- Create a Pull Request on GitHub
-- Fill in a detailed description
-- Wait for code review
-
-## 📋 **Contribution Guidelines**
-
-### **Code Contribution**
-- **Feature Development**: Add new features or improve existing ones
-- **Bug Fixes**: Fix known issues
-- **Performance Optimization**: Improve system performance
-- **Test Coverage**: Increase test coverage
-
-### **Data Contribution**
-- **Traditional Medicines**: Add traditional medicine information
-- **Chemical Components**: Provide SMILES structures
-- **Benefit Data**: Record therapeutic benefits and indications
-- **Source Citation**: Provide reliable references
-
-### **Documentation Contribution**
-- **User Guides**: Write user guides
-- **API Docs**: Improve API documentation
-- **Developer Docs**: Write developer documentation
-- **Translation**: Translate docs to other languages
-
-## 🎯 **Contribution Priorities**
-
-### **High Priority** 🔴
-1. **Data Quality Improvement**: Validate and optimize existing data
-2. **SMILES Validation**: Ensure chemical structure accuracy
-3. **Source Citation**: Improve data source information
-4. **Bug Fixes**: Fix critical issues
-
-### **Medium Priority** 🟡
-1. **New Feature Development**: Add user-requested features
-2. **Performance Optimization**: Improve system speed
-3. **UI Improvement**: Enhance user interface experience
-4. **Documentation Improvement**: Add missing docs
-
-### **Low Priority** 🟢
-1. **Code Refactoring**: Improve code structure
-2. **Test Coverage**: Add more test cases
-3. **Translation**: Multi-language support
-4. **Community Building**: Community activities and organization
-
-## 📊 **Detailed Data Contribution Guide**
-
-### **Data Format Requirements**
-- **CSV Format**: Use the provided template
-- **JSON Format**: Structured data format
-- **SMILES Validation**: Must pass chemical structure validation
-- **Source Citation**: Provide reliable references
-
-### **Data Quality Standards**
-- **Accuracy**: Information must be accurate
-- **Completeness**: Required fields must be filled
-- **Consistency**: Follow data format standards
-- **Reliability**: Sources must be trustworthy and verifiable
-
-### **Supported Traditional Medicine Systems**
-- **Ayurvedic Medicine**: Indian traditional medicine
-- **Traditional Chinese Medicine**: Chinese traditional medicine
-- **Unani Medicine**: Islamic traditional medicine
-- **African Traditional Medicine**: African continent traditional medicine
-- **Indigenous Medicine**: Indigenous traditional medicine
-
-## 🔧 **Development Tools**
-
-### **Code Quality Tools**
-```bash
-# Code formatting
-black tradchem_llm/
-isort tradchem_llm/
-
-# Code checking
-flake8 tradchem_llm/
-mypy tradchem_llm/
-
-# Run tests
-pytest tests/
-```
-
-### **Data Validation Tools**
-```bash
-# SMILES validation
-python -m tradchem.cli validate-smiles "YOUR_SMILES"
-
-# Data import test
-python -m tradchem.cli import --file data.csv --format csv
-
-# Data export
-python -m tradchem.cli export --file output.json --format json
-```
-
-## 📞 **Get Help**
-
-### **Technical Support**
-- **GitHub Issues**: Report bugs and feature requests
-- **GitHub Discussions**: Technical Q&A
-- **Discord Server**: Real-time technical support
-- **Email Support**: For complex issues
-
-### **Learning Resources**
-- **Getting Started Guide**: Quick start
-- **API Documentation**: Developer reference
-- **Example Projects**: Real-world use cases
-- **Video Tutorials**: Visual learning
-
-## 🏆 **Contributor Benefits**
-
-### **Recognition and Rewards**
-- **Contributor List**: Displayed in README
-- **Data Ownership**: Protect contributor rights
-- **Community Badge**: Special badge for active contributors
-- **Research Citation**: Support for academic citation
-
-### **Community Participation**
-- **Decision Making**: Participate in key project decisions
-- **Feature Suggestions**: Propose new features
-- **Community Activities**: Join community events
-- **Expert Consultation**: Get expert guidance
-
-## 📋 **Code of Conduct**
-
-### **Community Guidelines**
-- **Respect Others**: Respect all contributors
-- **Constructive Feedback**: Provide helpful feedback
-- **Inclusivity**: Welcome contributors from all backgrounds
-- **Professionalism**: Stay professional and polite
-
-### **Technical Guidelines**
-- **Code Quality**: Maintain high code quality
-- **Complete Documentation**: Provide relevant docs
-- **Test Coverage**: Write necessary tests
-- **Backward Compatibility**: Consider backward compatibility
-
-## 🚀 **Quick Contribution Templates**
-
-### **Data Contribution Template**
-```csv
-product_name,benefits,diseases,ingredients,smiles,source,traditional_system
-"Medicine Name","Benefit1; Benefit2; Benefit3","Disease1; Disease2; Disease3","Ingredient1; Ingredient2; Ingredient3","SMILES1; SMILES2; SMILES3","Source Reference","Traditional Medicine System"
-```
-
-### **Issue Template**
-- Use our provided Issue template
-- Describe the issue or suggestion in detail
-- Provide reproduction steps
-- Include environment information
-
-### **Pull Request Template**
-- Describe the changes
-- Explain the reason for the changes
-- Provide test results
-- Update relevant documentation
+- All contributions are released under MIT License
+- Contributors are credited in release notes
+- Large contributions may be highlighted in documentation
 
 ---
 
-**Thank you for contributing to the protection and advancement of traditional medicine knowledge!** 🌿🤝
-
-*Let's build a better traditional medicine AI platform together!*
-
-## Contributors
-
-We would like to thank the following people for their contributions:
-
-| Contributor Name | Assigned Medicinal Component | References |
-|------------------|------------------------------|------------|
-| [Contributor Name](https://github.com/contributor) | Component A | 1. Reference 1 <br> 2. Reference 2 |
-| [Another Contributor](https://github.com/another-contributor) | Component B | 1. Reference 3 <br> 2. Reference 4 |
+**Ready to contribute?** Start by adding one traditional medicine you know well to the database! 🌿
