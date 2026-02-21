@@ -1,0 +1,11 @@
+product_name,benefits,diseases,ingredients,smiles
+Kameshwari Rasayanaya,Enhances vitality; Boosts immunity,Weakness; Fatigue,Cannabis; Bee Honey; Ghee,CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\C)/CCC=C(C)C)O; C(C1C(C(C(C(O1)O)O)O)O)O; CCCC(=O)O
+Chandraprabha Vati,Supports urinary health; Reduces inflammation,Urinary tract infections; Diabetes,Guggulu; Shilajit,C1=CC(=O)C=C1; Fulvic acid SMILES placeholder
+Turmeric Extract,Anti-inflammatory; Antioxidant; Supports digestion,Inflammation; Arthritis; Digestive issues,Turmeric; Curcumin,CC1=CC(=C(C=C1)O)C(=O)O; CC1=CC(=C(C=C1)O)C(=O)O
+Ginger Root Extract,Anti-nausea; Anti-inflammatory; Supports digestion,Nausea; Motion sickness; Digestive issues,Ginger; Gingerol,CC(C)(C)CC1=CC(=C(C=C1)O)C(=O)O; CC(C)(C)CC1=CC(=C(C=C1)O)C(=O)O
+Ashwagandha Powder,Reduces stress; Improves energy; Supports immunity,Stress; Anxiety; Fatigue,Ashwagandha; Withanolides,CC1=CC(=C(C=C1)O)C(=O)O; CC1=CC(=C(C=C1)O)C(=O)O
+Neem Leaf Extract,Antibacterial; Antifungal; Supports skin health,Skin infections; Acne; Oral health,Neem; Azadirachtin,CC1=CC(=C(C=C1)O)C(=O)O; CC1=CC(=C(C=C1)O)C(=O)O
+Tulsi (Holy Basil),Supports respiratory health; Reduces stress; Antioxidant,Respiratory issues; Stress; Common cold,Tulsi; Eugenol,CC1=CC(=C(C=C1)O)C(=O)O; CC1=CC(=C(C=C1)O)C(=O)O
+Amla (Indian Gooseberry),Rich in Vitamin C; Antioxidant; Supports immunity,Vitamin C deficiency; Immunity; Skin health,Amla; Ascorbic acid,CC1=CC(=C(C=C1)O)C(=O)O; CC1=CC(=C(C=C1)O)C(=O)O
+Shatavari Root,Supports women's health; Hormonal balance; Digestive health,Menstrual issues; Hormonal imbalance; Digestive problems,Shatavari; Saponins,CC1=CC(=C(C=C1)O)C(=O)O; CC1=CC(=C(C=C1)O)C(=O)O
+Brahmi (Bacopa),Improves memory; Cognitive enhancement; Reduces anxiety,Memory loss; Cognitive decline; Anxiety,Brahmi; Bacosides,CC1=CC(=C(C=C1)O)C(=O)O; CC1=CC(=C(C=C1)O)C(=O)O 

@@ -1,49 +1,382 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+TradChem - Traditional Medicine Chemical Analysis
+Traditional medicine chemical analysis and data processing
+
+A comprehensive class for analyzing traditional medicine data, 
+chemical structures, and molecular properties.
+Comprehensive analysis tools for traditional medicine research
+
+Author: Anu Gamage
+"""
+
 import json
 import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from typing import List, Dict, Optional, Any, Union
+from datetime import datetime
+import logging
+from collections import Counter, defaultdict
+
+# Import utility modules - Load utility functions
+from .utils import smiles_utils, data_utils
+
+# Set up logging - Configure logging system
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class TradChem:
+    """
+    TradChem - Traditional Medicine Chemical Analysis
+    Traditional medicine database and analysis system
+    
+    A comprehensive class for analyzing traditional medicine data, 
+    chemical structures, and molecular properties.
+    Complete analysis toolkit for traditional medicine research
+    """
+    
     def __init__(self, database_path=None):
-        # Use default database if not provided
+        """
+        Initialize TradChem with optional database path.
+        Set up TradChem instance with database location
+        
+        Args:
+            database_path: Path to the traditional medicine database
+                          Location of the medicine database file
+        """
+        # Use default database if not provided - Set default database path
         self.database_path = database_path or os.path.join(
             os.path.dirname(__file__), "data", "tradchem_database.json"
         )
         self.data = self.load_database()
+        self._validate_database_structure()
+
+        # Initialize analysis results cache - Set up result caching
+        self._analysis_cache = {}
 
     def load_database(self):
-        """Load medicinal data from the JSON database."""
+        """
+        Load the traditional medicine database.
+        Read and parse the traditional medicine database
+        
+        Returns:
+            List of medicine dictionaries - Database entries
+        """
         try:
-            with open(self.database_path, "r") as file:
-                data = json.load(file)
-            return data
-        except FileNotFoundError:
-            print(f"Database file not found at {self.database_path}.")
+            if os.path.exists(self.database_path):
+                with open(self.database_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                logger.info(f"Loaded {len(data)} medicines from database")
+                return data
+            else:
+                logger.warning(f"Database file not found: {self.database_path}")
+                return []
+        except Exception as e:
+            logger.error(f"Error loading database: {e}")
             return []
 
-    def add_medicine(self, medicine_entry):
-        """Add a new medicine entry to the database."""
-        self.data.append(medicine_entry)
-        self.save_database()
-
-    def save_database(self):
-        """Save the medicinal data to the JSON database."""
-        with open(self.database_path, "w") as file:
-            json.dump(self.data, file, indent=4)
-        print(f"Data saved to {self.database_path}.")
-
-    def list_medicines(self):
-        """Return a list of all medicine product names."""
-        return [entry.get("product_name", "Unknown") for entry in self.data]
-
-    def predict_outcome(self, input_data):
+    def _validate_database_structure(self):
         """
-        Placeholder for integrating an LLM prediction.
-        The input_data can be processed to predict outcomes.
+        Validate the database structure.
+        Check database integrity and required fields
         """
-        # Here you would integrate your LLM model prediction logic.
-        return "Predicted outcome based on input data."
+        if not self.data:
+            logger.warning("Database is empty")
+            return
+        
+        # Check required fields - Verify essential data fields
+        required_fields = ['product_name', 'benefits', 'diseases', 'chemical_composition']
+        
+        for i, medicine in enumerate(self.data):
+            for field in required_fields:
+                if field not in medicine:
+                    logger.warning(f"Medicine {i}: Missing required field '{field}'")
 
-# Example usage if running as a script
-if __name__ == "__main__":
-    tradchem = TradChem()
-    print("Current medicines:", tradchem.list_medicines())
+    def search_medicines(self, query: str, search_type: str = "name", limit: int = 10) -> List[Dict[str, Any]]:
+        """
+        Search medicines in the database.
+        Find medicines matching search criteria
+        
+        Args:
+            query: Search query - Search term
+            search_type: Type of search ('name', 'benefit', 'disease') - Search category
+            limit: Maximum number of results - Result limit
+            
+        Returns:
+            List of matching medicines - Search results
+        """
+        query_lower = query.lower()
+        results = []
+        
+        for medicine in self.data:
+            match = False
+            
+            if search_type == "name" and 'product_name' in medicine:
+                if query_lower in medicine['product_name'].lower():
+                    match = True
+            elif search_type == "benefit" and 'benefits' in medicine:
+                for benefit in medicine['benefits']:
+                    if query_lower in benefit.lower():
+                        match = True
+                        break
+            elif search_type == "disease" and 'diseases' in medicine:
+                for disease in medicine['diseases']:
+                    if query_lower in disease.lower():
+                        match = True
+                        break
+            
+            if match:
+                results.append(medicine)
+                if len(results) >= limit:
+                    break
+        
+        return results
 
+    def get_statistics(self) -> Dict[str, Any]:
+        """
+        Get basic statistics about the database.
+        Generate comprehensive database statistics
+        
+        Returns:
+            Dictionary containing statistics - Database metrics
+        """
+        if not self.data:
+            return {"total_medicines": 0}
+        
+        stats = {
+            "total_medicines": len(self.data),
+            "total_benefits": 0,
+            "total_diseases": 0,
+            "traditional_systems": set(),
+            "geographic_origins": set(),
+            "ingredients": set()
+        }
+        
+        for medicine in self.data:
+            # Count benefits - Calculate benefit totals
+            if 'benefits' in medicine:
+                stats["total_benefits"] += len(medicine['benefits'])
+            
+            # Count diseases - Calculate disease totals
+            if 'diseases' in medicine:
+                stats["total_diseases"] += len(medicine['diseases'])
+            
+            # Collect traditional systems - Gather medical systems
+            if 'traditional_system' in medicine:
+                stats["traditional_systems"].add(medicine['traditional_system'])
+            
+            # Collect geographic origins - Gather regional data
+            if 'geographic_origin' in medicine:
+                stats["geographic_origins"].add(medicine['geographic_origin'])
+            
+            # Collect ingredients - Gather chemical components
+            if 'chemical_composition' in medicine:
+                comp = medicine['chemical_composition']
+                if 'ingredients' in comp:
+                    for ingredient in comp['ingredients'].keys():
+                        stats["ingredients"].add(ingredient)
+        
+        # Convert sets to lists for JSON serialization - Format for JSON output
+        stats["traditional_systems"] = sorted(list(stats["traditional_systems"]))
+        stats["geographic_origins"] = sorted(list(stats["geographic_origins"]))
+        stats["ingredients"] = sorted(list(stats["ingredients"]))
+        
+        return stats
+
+    def smart_search(self, query: str, search_type: str = "all", limit: int = 10) -> List[Dict[str, Any]]:
+        """
+        Advanced search with relevance scoring.
+        带相关性评分的高级搜索
+        
+        Args:
+            query: Search query / 搜索查询
+            search_type: Type of search / 搜索类型
+            limit: Maximum results / 最大结果数
+            
+        Returns:
+            List of medicines with relevance scores / 带相关性评分的药物列表
+        """
+        query_lower = query.lower()
+        results = []
+        
+        for medicine in self.data:
+            score = 0
+            matched_fields = []
+            
+            # Product name matching / 产品名匹配
+            if 'product_name' in medicine and query_lower in medicine['product_name'].lower():
+                score += 10
+                matched_fields.append('product_name')
+            
+            # Scientific name matching / 学名匹配
+            if 'scientific_name' in medicine and query_lower in medicine.get('scientific_name', '').lower():
+                score += 8
+                matched_fields.append('scientific_name')
+            
+            # Benefits matching / 功效匹配
+            if 'benefits' in medicine:
+                for benefit in medicine['benefits']:
+                    if query_lower in benefit.lower():
+                        score += 5
+                        matched_fields.append('benefits')
+                        break
+            
+            # Diseases matching / 疾病匹配
+            if 'diseases' in medicine:
+                for disease in medicine['diseases']:
+                    if query_lower in disease.lower():
+                        score += 5
+                        matched_fields.append('diseases')
+                        break
+            
+            # Traditional system matching / 传统医学系统匹配
+            if 'traditional_system' in medicine and query_lower in medicine.get('traditional_system', '').lower():
+                score += 3
+                matched_fields.append('traditional_system')
+            
+            # Geographic origin matching / 地理起源匹配
+            if 'geographic_origin' in medicine and query_lower in medicine.get('geographic_origin', '').lower():
+                score += 3
+                matched_fields.append('geographic_origin')
+            
+            # Chemical composition matching / 化学成分匹配
+            if 'chemical_composition' in medicine:
+                comp = medicine['chemical_composition']
+                if 'ingredients' in comp:
+                    for ingredient_name in comp['ingredients'].keys():
+                        if query_lower in ingredient_name.lower():
+                            score += 4
+                            matched_fields.append('chemical_composition')
+                            break
+            
+            if score > 0:
+                result_entry = medicine.copy()
+                result_entry['_relevance_score'] = score
+                result_entry['_matched_fields'] = matched_fields
+                results.append(result_entry)
+        
+        # Sort by relevance score / 按相关性评分排序
+        results.sort(key=lambda x: x['_relevance_score'], reverse=True)
+        return results[:limit]
+
+    def add_medicine(self, medicine_entry: Dict[str, Any]) -> bool:
+        """
+        Add a new medicine to the database.
+        向数据库添加新药物
+        
+        Args:
+            medicine_entry: Medicine data dictionary / 药物数据字典
+            
+        Returns:
+            Success status / 成功状态
+        """
+        try:
+            # Validate required fields / 验证必需字段
+            required_fields = ['product_name', 'benefits', 'diseases', 'chemical_composition']
+            
+            for field in required_fields:
+                if field not in medicine_entry:
+                    logger.error(f"Missing required field: {field}")
+                    return False
+            
+            # Add timestamp and entry ID / 添加时间戳和条目ID
+            medicine_entry['date_added'] = datetime.now().isoformat()
+            medicine_entry['entry_id'] = f"TC_{len(self.data)+1:06d}"
+            
+            # Add to database / 添加到数据库
+            self.data.append(medicine_entry)
+            
+            # Save to file / 保存到文件
+            self._save_database()
+            
+            logger.info(f"Added new medicine: {medicine_entry['product_name']}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error adding medicine: {e}")
+            return False
+
+    def _save_database(self):
+        """
+        Save the database to file.
+        将数据库保存到文件
+        """
+        try:
+            with open(self.database_path, 'w', encoding='utf-8') as f:
+                json.dump(self.data, f, indent=4, ensure_ascii=False)
+            logger.info("Database saved successfully")
+        except Exception as e:
+            logger.error(f"Error saving database: {e}")
+
+    def export_data(self, output_path: str, format: str = 'json') -> bool:
+        """
+        Export database to different formats.
+        Save database in various file formats
+        
+        Args:
+            output_path: Output file path - Destination file
+            format: Export format ('json', 'csv', 'xlsx') - File format
+            
+        Returns:
+            Success status - Export success indicator
+        """
+        try:
+            if format.lower() == 'json':
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    json.dump(self.data, f, indent=4, ensure_ascii=False)
+            
+            elif format.lower() == 'csv':
+                # Flatten the data for CSV - Convert to CSV format
+                flattened_data = []
+                for medicine in self.data:
+                    flat_entry = {
+                        'product_name': medicine.get('product_name', ''),
+                        'english_name': medicine.get('english_name', ''),
+                        'description': medicine.get('description', ''),
+                        'traditional_system': medicine.get('traditional_system', ''),
+                        'geographic_origin': medicine.get('geographic_origin', ''),
+                        'benefits': '; '.join(medicine.get('benefits', [])),
+                        'diseases': '; '.join(medicine.get('diseases', [])),
+                        'source': medicine.get('source', ''),
+                        'date_added': medicine.get('date_added', ''),
+                        'entry_id': medicine.get('entry_id', '')
+                    }
+                    flattened_data.append(flat_entry)
+                
+                df = pd.DataFrame(flattened_data)
+                df.to_csv(output_path, index=False, encoding='utf-8')
+            
+            elif format.lower() == 'xlsx':
+                # Similar to CSV but for Excel - Convert to Excel format
+                flattened_data = []
+                for medicine in self.data:
+                    flat_entry = {
+                        'product_name': medicine.get('product_name', ''),
+                        'english_name': medicine.get('english_name', ''),
+                        'description': medicine.get('description', ''),
+                        'traditional_system': medicine.get('traditional_system', ''),
+                        'geographic_origin': medicine.get('geographic_origin', ''),
+                        'benefits': '; '.join(medicine.get('benefits', [])),
+                        'diseases': '; '.join(medicine.get('diseases', [])),
+                        'source': medicine.get('source', ''),
+                        'date_added': medicine.get('date_added', ''),
+                        'entry_id': medicine.get('entry_id', '')
+                    }
+                    flattened_data.append(flat_entry)
+                
+                df = pd.DataFrame(flattened_data)
+                df.to_excel(output_path, index=False)
+            
+            else:
+                logger.error(f"Unsupported format: {format}")
+                return False
+            
+            logger.info(f"Data exported to {output_path} as {format}")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error exporting data: {e}")
+            return False 

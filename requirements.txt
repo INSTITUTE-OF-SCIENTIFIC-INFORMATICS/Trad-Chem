@@ -1,6 +1,15 @@
-numpy==1.21.2
-pandas==1.3.3
-scipy==1.7.1
-matplotlib==3.4.3
-seaborn==0.11.2
-scikit-learn==0.24.2
+# Core dependencies for TradChem database and LLM integration
+numpy>=1.21.0
+pandas>=1.3.0
+matplotlib>=3.4.0
+
+# Data validation and processing
+jsonschema>=3.2.0
+
+# Optional: Chemical analysis (uncomment if needed)
+# rdkit-pypi>=2022.9.1
+
+# Optional: Advanced analysis (uncomment if needed)
+# scipy>=1.7.0
+# scikit-learn>=0.24.0
+# seaborn>=0.11.0
