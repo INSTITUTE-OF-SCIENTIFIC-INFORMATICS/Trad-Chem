@@ -1,71 +1,171 @@
 [
-    
     {
-        "product_name": "Madan Bark– syzygium cumini ",
-        "diseases": ["Disease 1", "Disease 2"],
-        "chemical_composition_of_bark": {
+        "product_name": "Kameshwari Rasayana",
+        "english_name": "Vitality Enhancement Tonic",
+        "description": "Traditional Ayurvedic medicine preparation known for enhancing vitality and immune function",
+        "benefits": [
+            "Enhances vitality",
+            "Boosts immunity",
+            "Improves overall health",
+            "Strengthens immune system"
+        ],
+        "diseases": [
+            "Weakness",
+            "Fatigue",
+            "Low immunity",
+            "General debility"
+        ],
+        "chemical_composition": {
             "ingredients": {
-                "1.Betulinic Acid (BA)":{
-                    "smiles": "CC(=C)[C@@H]1CC[C@]2([C@H]1[C@H]3CC[C@@H]4[C@]5(CC[C@@H](C([C@@H]5CC[C@]4([C@@]3(CC2)C)C)(C)C)O)C)C(=O)O",
-                    "roles": "as anti-tumour, anti-viral, anti-inflammatory, and anti-diabetic effects ",
-                
-                "2.Friedelin":{
-                    "smiles":"C[C@H]1C(=O)CC[C@@H]2[C@@]1(CC[C@H]3[C@]2(CC[C@@]4([C@@]3(CC[C@@]5([C@H]4CC(CC5)(C)C)C)C)C)C)C",
-                    "roles":"inflammatory drug, non-narcotic, analgesic, antipyretic, plant metabolite, anti-insect action",
-
-                "3.Epi-friedelanol":{
-                    "smiles": "C[C@H]1[C@@H](CC[C@@H]2[C@@]1(CC[C@H]3[C@]2(CC[C@@]4([C@@]3(CC[C@@]5([C@H]4CC(CC5)(C)C)C)C)C)C)C)O ",
-                    "roles": "anti-cancer and anti-bacterial activities",
-
-                "4.Beta-sitosterol" :{
-                    "smiles": "CC[C@H](CC[C@@H](C)[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CC=C4[C@@]3(CC[C@@H](C4)O)C)C)C(C)C",
-                    "roles": "sterol methyltransferase inhibitor, anti-oxidant, plant metabolite, mouse metabolite, anti cholesteremic drug",
-                    
-                "5.Eugenin" :{
-                    "smiles": "CC1=CC(=O)C2=C(C=C(C=C2O1)OC)O ",
-                    "roles": "antioxidant, antiplatelet aggregation, immunosuppressive/immunomodulatory and anti-malarial activity",
-
-                "6.quercetin" :{
-                    "smiles": "C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O ",
-                    "roles": "antibacterial agent, plant metabolite, a phytoestrogen, a protein kinase inhibitor, a chelator, an antineoplastic agent.",
-
-                "7.kaempferol." :{
-                    "smiles": "C1=CC(=CC=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O",
-                    "roles": "antibacterial agent, a human urinary metabolite, a plant metabolite, human blood serum metabolite, and a geroprotector",
-
-                "8.Myricetin " :{
-                    "smiles": "C1=C(C=C(C(=C1O)O)O)C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O ",
-                    "roles": "strong anti-oxidant, anticancer, antidiabetic, anti-platelet aggregation and anti-inflammatory",
-
-                "9.Gallic Acid" :{
-                    "smiles": "C1=C(C=C(C(=C1O)O)O)C(=O)O",
-                    "roles": "anti-inflammatory, anti-cancer, antioxidant, anti-angiogenic",
-
-                "10.Bergenings" :{
-                    "smiles": "COC1=C(C=C2C(=C1O)[C@H]3[C@@H]([C@H]([C@@H]([C@H](O3)CO)O)O)OC2=O)O",
-                    "roles": "antiviral, antifungal, antitussive, ant plasmodial, anti-inflammatory, antihepatotoxic, antiarrhythmic, antitumor, antidiabetic and wound healing properties",
-
-                "11.Ellagic acid" :{
-                    "smiles": "C1=C2C3=C(C(=C1O)O)OC(=O)C4=CC(=C(C(=C43)OC2=O)O)O ",
-                    "roles": "antioxidant, a food additive, a plant metabolite. It is an investigational drug."
-
-                }    
+                "Cannabis": {
+                    "cannabigerolic acid": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)O",
+                    "cannabigerolic acid monomethylether": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)OC",
+                    "cannabigerol": "CCCCCC1=CC(=C(C(=C1)O)C/C=C(\\C)/CCC=C(C)C)O",
+                    "cannabigerol monomethylether": "CCCCCC1=CC(=C(C(=C1C(=O)O)O)C/C=C(\\C)/CCC=C(C)C)OC",
+                    "cannabigerovarinic acid": "CCCC1=CC(=C(C(=C1C(=O)O)O)CC=C(C)CCC=C(C)C)O",
+                    "cannabigerovarin": "CCCC1=CC(=C(C(=C1)O)C/C=C(\\C)/CCC=C(C)C)O"
+                },
+                "Bee Honey": {
+                    "Glucose": "C(C1C(C(C(C(O1)O)O)O)O)O",
+                    "Fructose": "C(C(C(C(C(=O)CO)O)O)O)O"
+                },
+                "Ghee": {
+                    "Butyric Acid": "CCCC(=O)O",
+                    "Palmitic Acid": "CCCCCCCCCCCCCCCC(=O)O"
                 }
-                    }
-                    }
-                    }
-                    }
-                }
-                }   
-                }
-                
-                    
-                  
-
-                }
-                }
-                
             }
-        }
+        },
+        "traditional_system": "Ayurveda",
+        "geographic_origin": "South Asia",
+        "source": "Traditional Ayurvedic texts",
+        "date_added": "2024-01-01T00:00:00.000000",
+        "entry_id": "TC_000001"
+    },
+    {
+        "product_name": "Ginseng Root Extract",
+        "english_name": "American Ginseng Root Extract",
+        "description": "Standardized extract from Panax quinquefolius root used for energy and cognitive enhancement",
+        "benefits": [
+            "Energy enhancement",
+            "Cognitive improvement",
+            "Stress reduction",
+            "Immune support"
+        ],
+        "diseases": [
+            "Mental fatigue",
+            "Physical exhaustion",
+            "Cognitive decline",
+            "Stress disorders"
+        ],
+        "chemical_composition": {
+            "ingredients": {
+                "Ginseng Root": {
+                    "ginsenoside_rb1": "CC(C)(C1CCC2(C(C1)CC(C3(C2CCC4(C3(CCC(C4(C)C)O)C)C)C)O)C)C(=O)O",
+                    "ginsenoside_rg1": "CC(C)(C1CCC2(C(C1)CCC3(C2CC(C4(C3CCC(C4(C)C)O)C)O)C)C)CO"
+                }
+            }
+        },
+        "traditional_system": "Traditional Chinese Medicine",
+        "geographic_origin": "North America",
+        "source": "Clinical research studies",
+        "date_added": "2024-01-01T00:00:00.000000",
+        "entry_id": "TC_000002"
+    },
+    {
+        "product_name": "Turmeric Curcumin Complex",
+        "english_name": "Turmeric Curcumin Anti-inflammatory Complex",
+        "description": "Standardized turmeric extract with enhanced bioavailability for anti-inflammatory benefits",
+        "benefits": [
+            "Anti-inflammatory effects",
+            "Antioxidant protection",
+            "Joint health support",
+            "Digestive health"
+        ],
+        "diseases": [
+            "Arthritis",
+            "Inflammatory conditions",
+            "Joint pain",
+            "Digestive disorders"
+        ],
+        "chemical_composition": {
+            "ingredients": {
+                "Turmeric Root": {
+                    "curcumin": "COC1=C(C=CC(=C1)C=CC(=O)CC(=O)C=CC2=CC(=C(C=C2)O)OC)O",
+                    "demethoxycurcumin": "COC1=CC(=CC=C1O)C=CC(=O)CC(=O)C=CC2=CC=C(C=C2)O",
+                    "bisdemethoxycurcumin": "C1=CC(=CC=C1C=CC(=O)CC(=O)C=CC2=CC=C(C=C2)O)O"
+                }
+            }
+        },
+        "traditional_system": "Ayurveda",
+        "geographic_origin": "India",
+        "source": "Modern extraction and standardization",
+        "date_added": "2024-01-01T00:00:00.000000",
+        "entry_id": "TC_000003"
+    },
+    {
+        "product_name": "Ashwagandha Root Extract",
+        "english_name": "Winter Cherry Adaptogenic Extract",
+        "description": "Standardized Withania somnifera root extract used for stress management and adaptogenic benefits",
+        "benefits": [
+            "Stress reduction",
+            "Anxiety relief",
+            "Energy enhancement",
+            "Sleep quality improvement",
+            "Cognitive function support"
+        ],
+        "diseases": [
+            "Chronic stress",
+            "Anxiety disorders",
+            "Insomnia",
+            "Mental fatigue",
+            "Adrenal exhaustion"
+        ],
+        "chemical_composition": {
+            "ingredients": {
+                "Ashwagandha Root": {
+                    "withanoside_d": "CC(C)(C1CCC2(C(C1)CCC3(C2CC(C4(C3CCC(C4(C)C)O)C)O)C)C)CO",
+                    "withanolide_a": "CC1=CC(=O)C2C(C1)CCC3(C2CC(C4(C3CCC(C4(C)C)O)C)O)C",
+                    "withanoside_vi": "CC(C)(C1CCC2(C(C1)CCC3(C2CCC4(C3(CCC(C4(C)C)O)C)C)C)C)C(=O)O"
+                }
+            }
+        },
+        "traditional_system": "Ayurveda",
+        "geographic_origin": "India",
+        "source": "Traditional Ayurvedic pharmacopoeia",
+        "date_added": "2024-01-01T00:00:00.000000",
+        "entry_id": "TC_000004"
+    },
+    {
+        "product_name": "Harithakyadiya",
+        "english_name": "",
+        "description": "Used in Ayurvedic medicine for digestive health and respiratory support",
+        "benefits": [
+            "Analgesics",
+            "Anti inflammatory agents",
+            "Antipyretics",
+            "Arthritis",
+            "hypoglycemic agents "
+        ],
+        "diseases": [
+            "Diabetic mellitus",
+            "Diarrhea",
+            "Appetite stimulants",
+            "Astringents",
+            "Flatulence"
+        ],
+        "chemical_composition": {
+            "ingredients": {
+                "Java plum bark": {
+                    "Quercetin": "C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O",
+                    "Kaempferol": "C1=CC(=CC=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O",
+                    "Myricetin": "C1=C(C=C(C(=C1O)O)O)C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O"
+                }
+            }
+        },
+        "traditional_system": "Ayurveda",
+        "geographic_origin": "India",
+        "source": "Traditional Ayurvedic pharmacopoeia",
+        "date_added": "2026-02-21",
+        "entry_id": "TC_000005"
     }
 ]
